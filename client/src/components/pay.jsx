@@ -1,6 +1,6 @@
-import React from "react";
-
+import React, {useState,useEffect } from "react";
 function Pay(props){
+  
     return(
         <div className="App">
         <h1>Good to Go!</h1>

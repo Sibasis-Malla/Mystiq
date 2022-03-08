@@ -1,13 +1,12 @@
-   import { useState } from "react";
     import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 
     // Replace with your Alchemy api key:
-    const apiKey = "mQmfG5w4UTh8ft6IkmKWSxocKB3jbf8C";
+    const apiKey = "633Ea-EZaGL_M9yIRCWk5uGxNAuR1mEu";
     
     // Initialize an alchemy-web3 instance:
     const web3 = createAlchemyWeb3(
-      `https://eth-rinkeby.alchemyapi.io/v2/${apiKey}`,
+      `https://polygon-mumbai.g.alchemy.com/v2/${apiKey}`,
     );
     
     // The wallet address we want to query for NFTs:
@@ -18,8 +17,11 @@
       owner: ownerAddr
     })
     const array = nfts.ownedNfts;
-    const result = array.filter(element=>element.address="0x73E2937df8ccEcc22E171E08fF624cd3Ca002189")
+    console.log(array)
+    const result = array.filter(element=>element.contract.address==="0x73e2937df8ccecc22e171e08ff624cd3ca002189")
+    const result2 = result.filter(element=>element.id.tokenId==="0x0000000000000000000000000000000000000000000000000000000000000001")
     console.log(result)
+    console.log(result2)
     }
 
 

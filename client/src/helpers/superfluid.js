@@ -17,7 +17,7 @@ const getInfo = async()=>{
 });
 }
 
-const ETHx = "0x6fC99F5591b51583ba15A8C2572408257A1D2797";
+const ETHx = "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7";
 
 const createNewFlow= async ()=> {
 
@@ -61,6 +61,7 @@ const createNewFlow= async ()=> {
   const id = Math.floor(100000 + Math.random() * 900000);//6 digits
   const createIndex = async()=>{
   try {
+    
   
     const createIndexOperation = sf.idaV1.createIndex({
       indexId: id,
@@ -71,6 +72,7 @@ const createNewFlow= async ()=> {
     console.log("Creating your Index...");
 
     await createIndexOperation.exec(signer);
+    localStorage.setItem('teamId',id)
 
     console.log(
       `Congrats - you've just created a new Index!
@@ -78,6 +80,7 @@ const createNewFlow= async ()=> {
        Index ID: ${id}
     `
     );
+    
   } catch (error) {
     console.error(error);
   }

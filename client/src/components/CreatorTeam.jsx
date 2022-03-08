@@ -1,15 +1,18 @@
 import React, {useState,useEffect } from "react";
-import {createIndex,updateSubscription,distributeFunds,getInfo} from "../superfluid"
-
+import {createIndex,updateSubscription,distributeFunds,getInfo} from "../helpers/superfluid"
+import{app,database} from "../helpers/Firebase"
+import {ref, set,onValue } from "firebase/database";
 
 
 function ManageTeam(){
-    const [teamId,setTeamId] = useState("");
+    const [name,setName] = useState("");
     const [membAddress,setmembId] = useState("");
     const [shares,setShares] = useState("");
     const [amount,setAmount] = useState("");
     const [price,setPrice] = useState("");
     const [NFT,setNFT] = useState("");
+    const [members,setmemb] = useState("");
+    const [counter=0,setcounter] = useState();
 
     const handlePrice = (event) => {
         setPrice(()=>([event.target.name] = event.target.value))
@@ -20,10 +23,6 @@ function ManageTeam(){
 
        };
 
-    const handleTeamId = (event) => {
-        setTeamId(()=>([event.target.name] = event.target.value))
-        
-       };
     const handleTeamMemb = (event) => {
         setmembId(()=>([event.target.name] = event.target.value))
         
@@ -36,19 +35,48 @@ function ManageTeam(){
         setAmount(()=>([event.target.name] = event.target.value))
        
        };
+       const handleName = (event) => {
+        setName(()=>([event.target.name] = event.target.value))
        
+       };
+       function createTeam(){
+        set(ref(database, 'Creators/'+localStorage.getItem('CurrentAccount')), {
+             id:localStorage.getItem('teamId')
+            });
+            setcounter(0);
+          }
+       function AddTeamMember(){
+
+        set(ref(database, 'Creators/'+localStorage.getItem('CurrentAccount')+'/team/'+`${counter}`), {
+          name:name,
+          address:membAddress,
+          shares:shares
+          });
+          
+          setcounter(counter+1);
+        }
+
+        useEffect(() => {
+            const members = ref(database, 'Creators/'+localStorage.getItem('CurrentAccount')+'/team');
+            onValue(members, (snapshot) => {
+            const data = snapshot.val();
+             console.log(data)
+              setmemb(data);
+              console.log(data)
+            });
+          }, []);
 
    
     return( 
     <div>
         <div>                
-            <button onClick={createIndex}>Create Team</button>
+            <button onClick={(event)=>[createIndex() , createTeam()]}>Create Team</button>
          
         </div>
         <div name="Add Member">
             <div >
-                Enter Team Id
-                <input  type="number" name="teamId" onChange={handleTeamId}/>
+                Enter Name
+                <input  type="text" name="name" onChange={handleName}/>
             </div>
             <div>
                 Enter Team Member address
@@ -58,17 +86,14 @@ function ManageTeam(){
                 Enter number of Shares
                 <input type="number" name="shares" onChange={handleShares} />
             </div>
-            <button onClick={()=>updateSubscription(teamId,membAddress,shares)}> Add member</button>
+            <button onClick={/*()=>updateSubscription(teamId,membAddress,shares)*/AddTeamMember}> Add member</button>
+       
         </div>
         <div name="Send Funds">
-        <div >
-                Enter Team Id
-                <input  type="number" name="teamId" onChange={handleTeamId}/>
-            </div>
             <div>
                 Enter amount to be distributed in wei
                 <input type="number" name="amount" onChange={handleAmount}/>
-                <button onClick={()=>distributeFunds(teamId,amount)}>Distribute</button>
+                <button onClick={AddTeamMember}>Distribute</button>
             </div>
 
 

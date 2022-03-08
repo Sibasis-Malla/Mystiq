@@ -4,9 +4,9 @@ import Player from "./components/Viewer";
 import Pay from "./components/pay";
 import StartStream from "./components/CreatorDashboard";
 import ManageTeam from "./components/CreatorTeam";
-import {fetchData,lst} from "./livepeer";
-import {getlit} from "./AlchemyNFT";
-import {createNewFlow,StopFlow,readTokens,getInfo} from "./superfluid"
+import {fetchData,lst} from "./helpers/livepeer";
+import {getlit} from "./helpers/AlchemyNFT";
+import {createNewFlow,StopFlow,readTokens,getInfo} from "./helpers/superfluid"
 import "./App.css";
 
 function App  () {  
@@ -45,8 +45,8 @@ function App  () {
     } else {
       console.log("We have the ethereum object", ethereum);
     }
-    const auth = getlit(Currentaccount);
-    console.log(auth);
+   
+   
 
     const accounts = await ethereum.request({ method: "eth_accounts" });
     const chain = await window.ethereum.request({ method: "eth_chainId" });
@@ -57,6 +57,7 @@ function App  () {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
+      localStorage.setItem('CurrentAccount',account);
     } else {
       console.log("No authorized account found");
     }
@@ -66,7 +67,7 @@ function App  () {
     checkIfWalletIsConnected();
   }, []);
 
-
+  getlit(Currentaccount)
 const handleSubmit = async (event)=>{
   event.preventDefault();
   console.log(LivepeerApiKey)
