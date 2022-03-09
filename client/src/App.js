@@ -6,7 +6,7 @@ import StartStream from "./components/CreatorDashboard";
 import ManageTeam from "./components/CreatorTeam";
 import {fetchData,lst} from "./helpers/livepeer";
 import {getlit} from "./helpers/AlchemyNFT";
-import {createNewFlow,StopFlow,readTokens,getInfo} from "./helpers/superfluid"
+import {createNewFlow,StopFlow,getInfo} from "./helpers/superfluid"
 import "./App.css";
 
 function App  () {  
@@ -94,7 +94,6 @@ const showData=(event)=>{
           ConnectWallet = {connectWallet}
           createNewFlow = {()=>createNewFlow()}
           StopFlow = {()=>StopFlow(Currentaccount)}
-          read = {()=>readTokens(Currentaccount)}
           />}/>
       
       <Route path='/stream'

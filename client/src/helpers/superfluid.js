@@ -1,5 +1,5 @@
 
-import { Framework,SuperToken } from "@superfluid-finance/sdk-core";
+import { Framework } from "@superfluid-finance/sdk-core";
 import { ethers } from "ethers";
 let chainId=null;
 let sf = null;
@@ -17,7 +17,7 @@ const getInfo = async()=>{
 });
 }
 
-const ETHx = "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7";
+const fUSDCx = "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7";
 
 const createNewFlow= async ()=> {
 
@@ -25,9 +25,9 @@ const createNewFlow= async ()=> {
   
     try {
       const createFlowOperation = sf.cfaV1.createFlow({
-        receiver: '0x721d8574379BF9bB88a4Ca3442cCE095556279A7',
-        flowRate: '385802469135802',
-        superToken: ETHx
+        receiver: '0xA080c1d469936774489A94b2f404A5a1FeAAddA1',
+        flowRate: '3858024691358',
+        superToken: fUSDCx
         // userData?: string
       });
   
@@ -46,7 +46,7 @@ const createNewFlow= async ()=> {
       const StopFlowOperation = sf.cfaV1.deleteFlow({
         sender:_sender,
         receiver: '0x721d8574379BF9bB88a4Ca3442cCE095556279A7',
-        superToken: ETHx
+        superToken: fUSDCx
         // userData?: string
       });
   
@@ -65,7 +65,7 @@ const createNewFlow= async ()=> {
   
     const createIndexOperation = sf.idaV1.createIndex({
       indexId: id,
-      superToken: ETHx
+      superToken: fUSDCx
       // userData?: string
     });
 
@@ -76,7 +76,7 @@ const createNewFlow= async ()=> {
 
     console.log(
       `Congrats - you've just created a new Index!
-       Super Token: ETHx
+       Super Token: fUSDCx
        Index ID: ${id}
     `
     );
@@ -89,7 +89,7 @@ const updateSubscription =async(_id,address,shares)=>{
 try {
   const updateSubscriptionOperation = sf.idaV1.updateSubscriptionUnits({
     indexId: _id,
-    superToken: ETHx,
+    superToken: fUSDCx,
     subscriber: address,
     units: shares
     // userData?: string
@@ -116,7 +116,7 @@ const distributeFunds = async(id_,amount)=>{
   try {
     const distributeOperation = sf.idaV1.distribute({
       indexId: id_,
-      superToken: ETHx,
+      superToken: fUSDCx,
       amount: amount
       // userData?: string
     });
@@ -136,23 +136,6 @@ const distributeFunds = async(id_,amount)=>{
   }
 }
 
-const readTokens = async(_sender)=>{
-  const fUSDCx = await new SuperToken.create({
-    id: "0x42bb40bf79730451b11f6de1cba222f17b87afd7",
-    isListed: true,
-    name: "Super fUSDC Fake Token",
-    symbol: "fUSDCx",
-    underlyingTokenAddress: "0xbe49ac1eadac65dccf204d4df81d650b50122ab2",
-    
-  })
-  const results = await fUSDCx.realtimeBalanceOf({
-    providerOrSigner:provider,
-     account:_sender,
-     timestamp:new Date().getTime()
-  }
 
-    )
-    console.log(results)
-  }
   
-  export  {createNewFlow,StopFlow,createIndex,updateSubscription,distributeFunds,getInfo,readTokens}
+  export  {createNewFlow,StopFlow,createIndex,updateSubscription,distributeFunds,getInfo}
