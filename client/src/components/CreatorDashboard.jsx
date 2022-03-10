@@ -27,7 +27,6 @@ function StartStream(props){
             <button onClick={handleSubmit}>
                 Submit
             </button>
-            <button onClick={props.show}>Show</button>
             </div>
 
         </form>
