@@ -1,21 +1,19 @@
-import React, {useState,useEffect } from "react";
-import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Player from "./components/Viewer";
 import Pay from "./components/pay";
 import StartStream from "./components/CreatorDashboard";
 import ManageTeam from "./components/CreatorTeam";
-import {getlit} from "./helpers/AlchemyNFT";
-import {createNewFlow,StopFlow,getInfo} from "./helpers/superfluid"
+import { getlit } from "./helpers/AlchemyNFT";
+import { createNewFlow, StopFlow, getInfo } from "./helpers/superfluid";
 import "./App.css";
+import styled from "styled-components";
+function App() {
+  getInfo();
 
-function App  () {  
-  getInfo()
- 
+  console.log("Hii Sibasis you are a girl");
 
-
-  const [Currentaccount,setCurrentAccount] = useState("");
- 
- 
+  const [Currentaccount, setCurrentAccount] = useState("");
 
   const connectWallet = async () => {
     try {
@@ -26,7 +24,7 @@ function App  () {
         return;
       }
       const accounts = await ethereum.request({
-        method: "eth_requestAccounts"
+        method: "eth_requestAccounts",
       });
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
@@ -44,8 +42,6 @@ function App  () {
     } else {
       console.log("We have the ethereum object", ethereum);
     }
-   
-   
 
     const accounts = await ethereum.request({ method: "eth_accounts" });
     const chain = await window.ethereum.request({ method: "eth_chainId" });
@@ -56,7 +52,7 @@ function App  () {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
-      localStorage.setItem('CurrentAccount',account);
+      localStorage.setItem("CurrentAccount", account);
     } else {
       console.log("No authorized account found");
     }
@@ -66,40 +62,31 @@ function App  () {
     checkIfWalletIsConnected();
   }, []);
 
-  getlit(Currentaccount)
+  getlit(Currentaccount);
 
-    return (
-      <Router>
-        <Routes>
-        <Route path = "/Pay"
-          element ={
-          <Pay
-          ConnectWallet = {connectWallet}
-          createNewFlow = {()=>createNewFlow()}
-          StopFlow = {()=>StopFlow(Currentaccount)}
-          />}/>
-      
-      <Route path='/stream'
-        element= {<Player
-        playbackId = {localStorage.getItem('playbackId')}
-         />}/>
-        <Route path='/creator'
-        element ={
-          <StartStream
-          />
-        }
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/Pay"
+          element={
+            <Pay
+              ConnectWallet={connectWallet}
+              createNewFlow={() => createNewFlow()}
+              StopFlow={() => StopFlow(Currentaccount)}
+            />
+          }
         />
-        <Route path='/creator/team'
-        element ={
-          <ManageTeam
-          />
-        }
+
+        <Route
+          path="/stream"
+          element={<Player playbackId={localStorage.getItem("playbackId")} />}
         />
+        <Route path="/creator" element={<StartStream />} />
+        <Route path="/creator/team" element={<ManageTeam />} />
       </Routes>
-      </Router>
-
-    );
-  }
-
+    </Router>
+  );
+}
 
 export default App;
