@@ -7,6 +7,9 @@ import ManageTeam from "./components/CreatorTeam";
 import { getlit } from "./helpers/AlchemyNFT";
 import { createNewFlow, StopFlow, getInfo } from "./helpers/superfluid";
 import "./App.css";
+import Display from "./pages/Display";
+import Navbar from "./components/Navbar";
+
 import styled from "styled-components";
 function App() {
   getInfo();
@@ -66,7 +69,11 @@ function App() {
 
   return (
     <Router>
+      <Navbar />
+
       <Routes>
+        <Route path="/" element={<Display />} />
+
         <Route
           path="/Pay"
           element={
