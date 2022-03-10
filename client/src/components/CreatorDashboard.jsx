@@ -1,18 +1,30 @@
-import React from "react";
-
+import React ,{useState,useEffect }from "react";
+import {fetchData} from "../helpers/livepeer";
 
 function StartStream(props){
-
+    const [LivepeerApiKey,setKey] = useState("");
+    const handleSubmit =  async(event)=>{
+        event.preventDefault();
+        console.log(LivepeerApiKey)
+        await fetchData(LivepeerApiKey)
+        //console.log('After FetchData() is called')
+      }
+      const handleAPIKey = (event) => {
+       setKey(()=>([event.target.name] = event.target.value))
+       console.log(LivepeerApiKey)
+      };
+      
+   
     return( 
     <div>
         <form>
             Enter API Key
             <input type="text"
             name="LivepeerApiKey"
-            onChange={props.handC}
+            onChange={handleAPIKey}
             />
             <div>
-            <button onClick={props.submit}>
+            <button onClick={handleSubmit}>
                 Submit
             </button>
             <button onClick={props.show}>Show</button>

@@ -1,11 +1,10 @@
 import axios from "axios";
 
-const lst = [];  
-const populateData = (data) => {lst.push(data)} 
 
-function fetchData (APIkey){
- lst.pop();
-    axios.post('https://livepeer.com/api/stream',
+
+async function fetchData (APIkey){
+
+    await axios.post('https://livepeer.com/api/stream',
             {
              name: "test_stream",
              profiles: [
@@ -38,8 +37,11 @@ function fetchData (APIkey){
              authorization: `Bearer ${APIkey}`
            }
      }).then((response)=>{
-      populateData(response);
+       console.log(response.data.streamKey)
+      localStorage.setItem('streamKey',response.data.streamKey)
+      localStorage.setItem('playbackId',response.data.playbackId)
+      //console.log('Set at local Storage')
      })
 
    } 
-   export  {fetchData,lst};
+   export  {fetchData};

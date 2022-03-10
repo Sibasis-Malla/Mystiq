@@ -4,7 +4,6 @@ import Player from "./components/Viewer";
 import Pay from "./components/pay";
 import StartStream from "./components/CreatorDashboard";
 import ManageTeam from "./components/CreatorTeam";
-import {fetchData,lst} from "./helpers/livepeer";
 import {getlit} from "./helpers/AlchemyNFT";
 import {createNewFlow,StopFlow,getInfo} from "./helpers/superfluid"
 import "./App.css";
@@ -13,7 +12,7 @@ function App  () {
   getInfo()
  
 
-  const [LivepeerApiKey,setKey] = useState("");
+
   const [Currentaccount,setCurrentAccount] = useState("");
  
  
@@ -68,22 +67,6 @@ function App  () {
   }, []);
 
   getlit(Currentaccount)
-const handleSubmit = async (event)=>{
-  event.preventDefault();
-  console.log(LivepeerApiKey)
-  fetchData(LivepeerApiKey)  
-}
-const handleAPIKey = (event) => {
- setKey(()=>([event.target.name] = event.target.value))
- console.log(LivepeerApiKey)
-};
-
-const showData=(event)=>{
-  event.preventDefault();
-  console.log(lst[0].data.streamKey)
-  localStorage.setItem('streamKey',lst[0].data.streamKey)
- localStorage.setItem('playbackId',lst[0].data.playbackId)
-}
 
     return (
       <Router>
@@ -103,9 +86,6 @@ const showData=(event)=>{
         <Route path='/creator'
         element ={
           <StartStream
-          handC = {handleAPIKey}
-          submit={handleSubmit}
-          show={showData}
           />
         }
         />
