@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from "../helpers/livepeer";
 import styled from "styled-components";
-function StartStream(props) {
-  const [LivepeerApiKey, setKey] = useState("");
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log(LivepeerApiKey);
-    await fetchData(LivepeerApiKey);
-    //console.log('After FetchData() is called')
-  };
-  const handleAPIKey = (event) => {
-    setKey(() => ([event.target.name] = event.target.value));
-    console.log(LivepeerApiKey);
-  };
 
-<<<<<<< HEAD
 function StartStream(){
     const [LivepeerApiKey,setKey] = useState("");
     const handleSubmit =  async(event)=>{
@@ -30,9 +17,6 @@ function StartStream(){
       
    
     return( 
-=======
-  return (
->>>>>>> b49eacfb8cd7362d56331410702615abfd7a6cdd
     <div>
       <FormContainer>
         <form>

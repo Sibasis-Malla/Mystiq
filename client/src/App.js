@@ -10,17 +10,10 @@ import "./App.css";
 import Display from "./pages/Display";
 import Navbar from "./components/Navbar";
 
-<<<<<<< HEAD
-function App  () {  
-  //getInfo()
- 
-=======
 import styled from "styled-components";
 function App() {
-  getInfo();
->>>>>>> b49eacfb8cd7362d56331410702615abfd7a6cdd
 
-  console.log("Hii Sibasis you are a girl");
+  
 
   const [Currentaccount, setCurrentAccount] = useState("");
 
@@ -71,11 +64,7 @@ function App() {
     checkIfWalletIsConnected();
   }, []);
 
-<<<<<<< HEAD
   //getlit(Currentaccount)
-=======
-  getlit(Currentaccount);
->>>>>>> b49eacfb8cd7362d56331410702615abfd7a6cdd
 
   return (
     <Router>
