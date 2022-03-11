@@ -5,13 +5,13 @@ import Pay from "./components/pay";
 import StartStream from "./components/CreatorDashboard";
 import ManageTeam from "./components/CreatorTeam";
 import { getlit } from "./helpers/AlchemyNFT";
-import { createNewFlow, StopFlow, getInfo } from "./helpers/superfluid";
+
 import "./App.css";
 import Display from "./pages/Display";
 import Navbar from "./components/Navbar";
 
-import styled from "styled-components";
 function App() {
+ 
 
   
 
@@ -55,6 +55,7 @@ function App() {
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
       localStorage.setItem("CurrentAccount", account);
+      getlit(localStorage.getItem('CurrentAccount'));
     } else {
       console.log("No authorized account found");
     }
@@ -68,7 +69,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar ConnectWallet={connectWallet}/>
 
       <Routes>
         <Route path="/" element={<Display />} />
@@ -77,9 +78,6 @@ function App() {
           path="/Pay"
           element={
             <Pay
-              ConnectWallet={connectWallet}
-              createNewFlow={() => createNewFlow()}
-              StopFlow={() => StopFlow(Currentaccount)}
             />
           }
         />

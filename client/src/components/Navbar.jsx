@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const Navbar = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Gii");
-  };
+const Navbar = (props) => {
+
   return (
     <>
       <Container>
@@ -30,7 +27,7 @@ const Navbar = () => {
           </nav>
         </ListContainer>
         <div>
-          <Button onClick={(e) => handleSubmit(e)}>Metamask</Button>
+          <Button onClick={props.ConnectWallet}>Metamask</Button>
         </div>
       </Container>
     </>

@@ -17,11 +17,22 @@
       owner: ownerAddr
     })
     const array = nfts.ownedNfts;
-    console.log(array)
-    const result = array.filter(element=>element.contract.address==="0x73e2937df8ccecc22e171e08ff624cd3ca002189")
-    const result2 = result.filter(element=>element.id.tokenId==="0x0000000000000000000000000000000000000000000000000000000000000001")
-    console.log(result)
-    console.log(result2)
+    //console.log(array)
+    let count = 0;
+    function auth(item){
+      for(let i=0;i<item.length;i++){
+        //console.log(Math.trunc(Number(item[i].id.tokenId)/10000000) )
+        if(item[i].contract.address === "0x3a142dffefd8ceab39f15f3ffbd091bfbc2c892e" && Math.trunc(Number(item[i].id.tokenId)/10000000) === 391418){
+          count = count+1;
+          break;
+        }
+      }
+      if(count ===1){
+        console.log("Authenticated");
+      }
+  
+    }
+    auth(array);
     }
 
 

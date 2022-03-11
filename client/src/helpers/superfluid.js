@@ -20,9 +20,7 @@ const getInfo = async()=>{
 const fUSDCx = "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7";
 
 const createNewFlow= async ()=> {
-
-   
-  
+ await getInfo() 
     try {
       const createFlowOperation = sf.cfaV1.createFlow({
         receiver: '0xA080c1d469936774489A94b2f404A5a1FeAAddA1',

@@ -8,6 +8,7 @@
     "@superfluid-finance/sdk-core": "^0.3.0",
     "@truffle/contract": "^4.4.10",
     "axios": "^0.26.0",
+    "bignumber.js": "^9.0.2",
     "dag-jose": "^1.0.0",
     "ethers": "^5.5.4",
     "firebase": "^9.6.8",
@@ -22,7 +23,7 @@
     "react-scripts": "3.2.0",
     "react-video-js-player": "^1.1.1",
     "styled-components": "^5.3.3",
-    "web3": "^1.6.1"
+    "web3": "1.2.2"
   },
   "scripts": {
     "start": "react-scripts start",

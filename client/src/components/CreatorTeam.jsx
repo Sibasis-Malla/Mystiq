@@ -3,9 +3,8 @@ import {
   createIndex,
   updateSubscription,
   distributeFunds,
-  getInfo,
 } from "../helpers/superfluid";
-import { app, database } from "../helpers/Firebase";
+import { database } from "../helpers/Firebase";
 import { ref, set, onValue } from "firebase/database";
 import client from "../helpers/Nft_storage";
 import styled from "styled-components";
@@ -48,16 +47,15 @@ function ManageTeam() {
     set(ref(database, "Creators/" + localStorage.getItem("CurrentAccount")), {
       id: localStorage.getItem("teamId"),
     });
-    setcounter(0);
+   
   }
   function AddTeamMember() {
-    set(
+    update(
       ref(
         database,
         "Creators/" +
           localStorage.getItem("CurrentAccount") +
-          "/team/" +
-          `${counter}`
+          "/team" 
       ),
       {
         name: name,
@@ -66,7 +64,7 @@ function ManageTeam() {
       }
     );
 
-    setcounter(counter + 1);
+
   }
   const getData = () => {
     const members = ref(
@@ -100,6 +98,7 @@ function ManageTeam() {
     const result = await client.add(objJson);
 
     console.log(result.path);
+    localStorage.setItem('tokenURI',result.path);
     set(ref(database, "Creators/" + localStorage.getItem("CurrentAccount")), {
       tokeURI: result.path,
     });
