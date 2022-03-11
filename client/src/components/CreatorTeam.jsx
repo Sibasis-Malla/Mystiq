@@ -5,7 +5,7 @@ import {
   distributeFunds,
 } from "../helpers/superfluid";
 import { database } from "../helpers/Firebase";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue,update } from "firebase/database";
 import client from "../helpers/Nft_storage";
 import styled from "styled-components";
 
@@ -141,7 +141,7 @@ function ManageTeam() {
                   ) /*AddTeamMember*/
               }
             >
-              {" "}
+              {" "} 
               Add member
             </button>
           </Button>
