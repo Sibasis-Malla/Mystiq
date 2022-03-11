@@ -9,7 +9,7 @@ import {createNewFlow,StopFlow,getInfo} from "./helpers/superfluid"
 import "./App.css";
 
 function App  () {  
-  getInfo()
+  //getInfo()
  
 
 
@@ -66,7 +66,7 @@ function App  () {
     checkIfWalletIsConnected();
   }, []);
 
-  getlit(Currentaccount)
+  //getlit(Currentaccount)
 
     return (
       <Router>

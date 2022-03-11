@@ -1,7 +1,7 @@
 import React ,{useState,useEffect }from "react";
 import {fetchData} from "../helpers/livepeer";
 
-function StartStream(props){
+function StartStream(){
     const [LivepeerApiKey,setKey] = useState("");
     const handleSubmit =  async(event)=>{
         event.preventDefault();
