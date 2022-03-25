@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Player from "./components/Viewer";
 import Pay from "./components/pay";
-import StartStream from "./components/CreatorDashboard";
+import StartStream from "./components/Live";
 import ManageTeam from "./components/CreatorTeam";
+import data from "./pages/data";
 import { getlit } from "./helpers/AlchemyNFT";
+import UploadVideo from "./components/Upload"
 
 import "./App.css";
 import Display from "./pages/Display";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 function App() {
  
@@ -69,6 +72,7 @@ function App() {
 
   return (
     <Router>
+
       <Navbar ConnectWallet={connectWallet}/>
 
       <Routes>
@@ -86,8 +90,11 @@ function App() {
           path="/stream"
           element={<Player playbackId={localStorage.getItem("playbackId")} />}
         />
-        <Route path="/creator" element={<StartStream />} />
+        <Route path="/live" element={<StartStream />} />
         <Route path="/creator/team" element={<ManageTeam />} />
+        <Route path="/Upload" element={<UploadVideo/>} />
+        <Route path="/Creator" element={<Sidebar/>} />
+        
       </Routes>
     </Router>
   );

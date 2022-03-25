@@ -8,6 +8,7 @@ function Pay(props){
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const [token,setToken] = useState("");
+  let Bal=0;
   const Accesstoken = new ethers.Contract(
     AccessToken.networks[80001].address,
     AccessToken.abi,
@@ -26,6 +27,7 @@ function Pay(props){
 
     const bal = new BigNumber (fUSDCxBal._hex,16)
     console.log("FUSDCX Balance",bal.c[0]/10000)
+    Bal = bal.c[0]/10000;
   }
 
   const mintNFT = async()=>{

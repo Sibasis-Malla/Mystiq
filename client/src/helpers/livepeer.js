@@ -44,4 +44,18 @@ async function fetchData (APIkey){
      })
 
    } 
-   export  {fetchData};
+   async function request(APIkey){
+     await axios.post('https://livepeer.com/api/asset/request-upload',
+     {
+      
+        headers: {
+          "content-type": "application/json",
+          "authorization": `Bearer ${APIkey}`
+        }
+  }
+     ).then((response)=>{
+       console.log(response)
+     })
+
+   }
+   export  {fetchData,request};

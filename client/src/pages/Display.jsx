@@ -1,15 +1,15 @@
 import React from "react";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "../components/HomePage";
 import datas from "./data";
 import styled from "styled-components";
 const Display = () => {
   return (
     <Container>
       {datas.map((data) => {
-        const { name, id, image } = data;
+        const { name, id, image,address } = data;
         return (
           <article key={id}>
-            <Dashboard name={name} id={id} image={image} />
+            <Dashboard name={name} id={id} image={image} address={address}/>
           </article>
         );
       })}

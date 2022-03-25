@@ -5,9 +5,11 @@ import {
   distributeFunds,
 } from "../helpers/superfluid";
 import { database } from "../helpers/Firebase";
-import { ref, set, onValue,update } from "firebase/database";
+import { ref, set, onValue,update,push,child } from "firebase/database";
 import client from "../helpers/Nft_storage";
 import styled from "styled-components";
+import Sidebar from "./Sidebar";
+
 
 function ManageTeam() {
   const [name, setName] = useState("");
@@ -50,21 +52,17 @@ function ManageTeam() {
    
   }
   function AddTeamMember() {
-    update(
+    push(child(
       ref(
         database,
         "Creators/" +
           localStorage.getItem("CurrentAccount") +
           "/team" 
-      ),
-      {
+      ),  {
         name: name,
         address: membAddress,
         shares: shares,
-      }
-    );
-
-
+      }))  
   }
   const getData = () => {
     const members = ref(
@@ -110,12 +108,24 @@ function ManageTeam() {
     event.preventDefault();
     createJson();
   };
+  const onAdd = async(event)=>{
+    event.preventDefault();
+    updateSubscription(
+      localStorage.getItem("teamId"),
+      membAddress,
+      shares
+    )
+    AddTeamMember()
+  }
 
   return (
     <>
+  <div><Sidebar></Sidebar></div>
       <div>
+      
+      
         <Button1>
-          <button onClick={(event) => [createIndex(), createTeam()]}>
+          <button onClick={() => [createIndex(), createTeam()]}>
             Create CreatorID
           </button>
         </Button1>
@@ -132,27 +142,13 @@ function ManageTeam() {
           <input type="number" name="shares" onChange={handleShares} />
           <Button>
             <button
-              onClick={
-                () =>
-                  updateSubscription(
-                    localStorage.getItem("teamId"),
-                    membAddress,
-                    shares
-                  ) /*AddTeamMember*/
-              }
-            >
-              {" "} 
+              onClick={onAdd}>
+              
               Add member
             </button>
           </Button>
-        </form>
-      </FormContainer>
-
-      <FormContainer>
-        <form>
           <h3>Enter amount to be distributed in wei</h3>
           <input type="number" name="amount" onChange={handleAmount} />
-
           <Button>
             <button
               onClick={() =>
@@ -163,6 +159,14 @@ function ManageTeam() {
               Distribute
             </button>
           </Button>
+        </form>
+
+      </FormContainer>
+
+      <FormContainer>
+        <form>
+        
+
 
           <h3> Create Subscription</h3>
           <input
@@ -190,6 +194,8 @@ function ManageTeam() {
           </Button>
         </form>
       </FormContainer>
+  
+    
     </>
   );
 }

@@ -58,6 +58,7 @@ const createNewFlow= async ()=> {
   }
   const id = Math.floor(100000 + Math.random() * 900000);//6 digits
   const createIndex = async()=>{
+    await getInfo() 
   try {
     
   
@@ -84,6 +85,7 @@ const createNewFlow= async ()=> {
   }
 }
 const updateSubscription =async(_id,address,shares)=>{
+  await getInfo() 
 try {
   const updateSubscriptionOperation = sf.idaV1.updateSubscriptionUnits({
     indexId: _id,

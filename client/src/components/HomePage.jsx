@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Video from "../assets/video1.mp4";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import Video from "../../assets/video1.mp4";
 import HoverVideoPlayer from "react-hover-video-player";
 
-const Dashboard = ({ name, id, image }) => {
+
+const Dashboard = ({ name, address, image }) => {
   return (
     <>
       <VideoContainer>
@@ -34,8 +37,16 @@ const Dashboard = ({ name, id, image }) => {
           <Container>
             <img src={image} />
             <Details>
-              <h1>{name}</h1>
-              <p>0xA080c1d469936774489A94b2f404A5a1FeAAddA1</p>
+            <a class="d-grid btn btn-primary mx-auto">
+            <Link
+              to={address}
+              onClick={() => localStorage.setItem("CurrentCreator",address)}
+              style={{ textDecoration: "none", color: "#FFF" }}
+            >
+              {name}
+            </Link>
+          </a>
+          
             </Details>
           </Container>
         </div>

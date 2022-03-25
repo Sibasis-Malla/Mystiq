@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from "../helpers/livepeer";
 import styled from "styled-components";
-
+import Sidebar from "./Sidebar";
 function StartStream(){
     const [LivepeerApiKey,setKey] = useState("");
     const handleSubmit =  async(event)=>{
@@ -17,8 +17,11 @@ function StartStream(){
       
    
     return( 
+
     <div>
+     
       <FormContainer>
+      
         <form>
           <h3>Enter API Key </h3>
           <input type="text" name="LivepeerApiKey" onChange={handleAPIKey} />
@@ -29,6 +32,8 @@ function StartStream(){
           </div>
         </form>
       </FormContainer>
+      
+     
     </div>
   );
 }
