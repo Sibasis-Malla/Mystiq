@@ -1,0 +1,25 @@
+body {
+    background: rgb(3,9,40);
+    background: radial-gradient(circle, rgba(3,9,40,1) 0%, rgba(4,8,43,1) 100%);
+    color:white;
+    font-family:  'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+.card{
+   
+    display: inline-flex;
+    padding: 5px;
+    margin: 20px;
+    background: rgb(3,9,40);
+    background: radial-gradient(circle, rgba(3,9,40,1) 0%, rgba(171,55,233,1) 100%);
+}
+.card-a{
+   
+    height: 20rem;
+    display: inline-flex; 
+     padding: 5px;
+    margin: 20px;
+    align-items: center;
+    background: rgb(3,9,40);
+    background: radial-gradient(circle, rgba(3,9,40,1) 0%, rgba(171,55,233,1) 100%);
+    
+} 

@@ -205,6 +205,7 @@ const FormContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
+  color:black;
 
   > form {
     background: #f9f9f9;

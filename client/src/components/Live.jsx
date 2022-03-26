@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from "../helpers/livepeer";
 import styled from "styled-components";
+import Modal from "./Modal/Modal";
 import Sidebar from "./Sidebar";
 function StartStream(){
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(LivepeerApiKey);
+    await fetchData(LivepeerApiKey);
+    console.log("After FetchData() is called");
+    openModal();
+  };
+  const handleAPIKey = (event) => {
+    setKey(() => ([event.target.name] = event.target.value));
+  };
+
+
     const [LivepeerApiKey,setKey] = useState("");
-    const handleSubmit =  async(event)=>{
-        event.preventDefault();
-        console.log(LivepeerApiKey)
-        await fetchData(LivepeerApiKey)
-        //console.log('After FetchData() is called')
-      }
-      const handleAPIKey = (event) => {
-       setKey(()=>([event.target.name] = event.target.value))
-       console.log(LivepeerApiKey)
-      };
-      
+    
+  // Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
    
     return( 
 
@@ -27,23 +40,36 @@ function StartStream(){
           <input type="text" name="LivepeerApiKey" onChange={handleAPIKey} />
           <div>
             <Button>
-              <button onClick={handleSubmit}>Submit</button>
+              <button
+                onClick={(e) => {
+                  handleSubmit(e);
+                }}
+              >
+                Submit
+              </button>
             </Button>
           </div>
         </form>
       </FormContainer>
+      <Modal
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        apiKey={LivepeerApiKey}
+      />
       
      
     </div>
   );
 }
 export default StartStream;
+
 const FormContainer = styled.div`
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
   position: relative;
   background: black;
+  color:black;
   > form {
     background: #f9f9f9;
     padding: 25px;
