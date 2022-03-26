@@ -1,11 +1,12 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {request} from "../helpers/livepeer"
-function UploadVideo(){
- const[video,setVideo] = useState();
- const[title,setTitle] = useState();
- const[description,setDesc] = useState();
- const handleVid = (event) => {
+import { request } from "../helpers/livepeer";
+import Sidebar from "./Sidebar";
+function UploadVideo() {
+  const [video, setVideo] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDesc] = useState();
+  const handleVid = (event) => {
     setVideo(() => ([event.target.name] = event.target.value));
   };
   const handleTitle = (event) => {
@@ -14,15 +15,15 @@ function UploadVideo(){
   const handleDesc = (event) => {
     setDesc(() => ([event.target.name] = event.target.value));
   };
-  const handleSubmit = ()=>{
+  const handleSubmit = () => {
     request("0d8fda3d-24f6-4ff8-a53d-d74bec8ad10e");
-  }
-    return(   
-        <form>
+  };
+  return (
+    <>
+      <Sidebar />
+      <form>
         <div className="container-fluid col-md-6">
-        <h2 className="d-flex justify-content-center my-2">
-            Upload Video
-          </h2>
+          <h2 className="d-flex justify-content-center my-2">Upload Video</h2>
           <div className="mb-3">
             <label for="Title" className="form-label">
               Video Title
@@ -61,7 +62,7 @@ function UploadVideo(){
                 Upload
               </label>
             </div>
-  
+
             <button
               type="button"
               onClick={handleSubmit}
@@ -72,6 +73,7 @@ function UploadVideo(){
           </div>
         </div>
       </form>
-      )
-    }
-    export default UploadVideo;
+    </>
+  );
+}
+export default UploadVideo;

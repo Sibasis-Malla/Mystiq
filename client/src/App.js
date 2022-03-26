@@ -6,7 +6,7 @@ import StartStream from "./components/Live";
 import ManageTeam from "./components/CreatorTeam";
 import data from "./pages/data";
 import { getlit } from "./helpers/AlchemyNFT";
-import UploadVideo from "./components/Upload"
+import UploadVideo from "./components/Upload";
 
 import "./App.css";
 import Display from "./pages/Display";
@@ -14,10 +14,6 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
 function App() {
- 
-
-  
-
   const [Currentaccount, setCurrentAccount] = useState("");
 
   const connectWallet = async () => {
@@ -58,7 +54,7 @@ function App() {
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
       localStorage.setItem("CurrentAccount", account);
-      getlit(localStorage.getItem('CurrentAccount'));
+      getlit(localStorage.getItem("CurrentAccount"));
     } else {
       console.log("No authorized account found");
     }
@@ -72,19 +68,12 @@ function App() {
 
   return (
     <Router>
-
-      <Navbar ConnectWallet={connectWallet}/>
+      <Navbar ConnectWallet={connectWallet} />
 
       <Routes>
         <Route path="/" element={<Display />} />
 
-        <Route
-          path="/Pay"
-          element={
-            <Pay
-            />
-          }
-        />
+        <Route path="/Pay" element={<Pay />} />
 
         <Route
           path="/stream"
@@ -92,9 +81,8 @@ function App() {
         />
         <Route path="/live" element={<StartStream />} />
         <Route path="/creator/team" element={<ManageTeam />} />
-        <Route path="/Upload" element={<UploadVideo/>} />
-        <Route path="/Creator" element={<Sidebar/>} />
-        
+        <Route path="/Upload" element={<UploadVideo />} />
+        <Route path="/Creator" element={<Sidebar />} />
       </Routes>
     </Router>
   );
