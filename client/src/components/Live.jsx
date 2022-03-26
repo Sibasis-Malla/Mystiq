@@ -3,7 +3,9 @@ import { fetchData } from "../helpers/livepeer";
 import styled from "styled-components";
 import Modal from "./Modal/Modal";
 import Sidebar from "./Sidebar";
-function StartStream(){
+
+const drawerWidth = 240;
+function StartStream() {
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -22,19 +24,15 @@ function StartStream(){
     setKey(() => ([event.target.name] = event.target.value));
   };
 
+  const [LivepeerApiKey, setKey] = useState("");
 
-    const [LivepeerApiKey,setKey] = useState("");
-    
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-   
-    return( 
-
+  return (
     <div>
-     
       <FormContainer>
-      
+        <Sidebar />
         <form>
           <h3>Enter API Key </h3>
           <input type="text" name="LivepeerApiKey" onChange={handleAPIKey} />
@@ -56,8 +54,6 @@ function StartStream(){
         closeModal={closeModal}
         apiKey={LivepeerApiKey}
       />
-      
-     
     </div>
   );
 }
@@ -68,8 +64,7 @@ const FormContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  background: black;
-  color:black;
+  color: black;
   > form {
     background: #f9f9f9;
     padding: 25px;
