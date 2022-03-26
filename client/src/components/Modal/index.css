@@ -208,6 +208,7 @@ Variables
     transition: var(--transition);
     visibility: hidden;
     z-index: -1;
+    color:black
   }
   /* OPEN/CLOSE MODAL */
   .show-modal {
@@ -224,6 +225,7 @@ Variables
     display: grid;
     place-items: center;
     position: relative;
+    color: black;
   }
   .close-modal-btn {
     position: absolute;

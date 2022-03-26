@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 const Navbar = (props) => {
 
 
@@ -10,10 +10,6 @@ const Navbar = (props) => {
       <Button onClick={props.ConnectWallet}>Connect Metamask</Button>
         </div>
     </Container>
-
-     
-   
-   
 
   );
 };

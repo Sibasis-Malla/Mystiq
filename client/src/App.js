@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Player from "./components/Viewer";
-import Pay from "./components/pay";
+import Pay from "./components/CreatorLanding";
 import StartStream from "./components/Live";
 import ManageTeam from "./components/CreatorTeam";
 import data from "./pages/data";
