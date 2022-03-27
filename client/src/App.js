@@ -85,7 +85,7 @@ function App() {
         <Route path="/creator/team" element={<ManageTeam />} />
         <Route path="/Upload" element={<UploadVideo />} />
         <Route path="/Creator" element={<Sidebar />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/:add" element={<Profile />} />
         <Route path="/Signup" element={<Signup />} />
       </Routes>
     </Router>
