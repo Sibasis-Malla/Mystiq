@@ -11,6 +11,7 @@ import styled from "styled-components";
 import Sidebar from "./Sidebar";
 
 
+
 function ManageTeam() {
   const [name, setName] = useState("");
   const [membAddress, setmembId] = useState("");
@@ -52,7 +53,7 @@ function ManageTeam() {
    
   }
   function AddTeamMember() {
-    push(child(
+    set(
       ref(
         database,
         "Creators/" +
@@ -62,7 +63,7 @@ function ManageTeam() {
         name: name,
         address: membAddress,
         shares: shares,
-      }))  
+      })  
   }
   const getData = () => {
     const members = ref(
@@ -102,7 +103,7 @@ function ManageTeam() {
     });
     setcounter(0);
 
-    //console.log(result);
+    console.log(result);
   };
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -125,7 +126,7 @@ function ManageTeam() {
       
       
         <Button1>
-          <button onClick={() => [createIndex(), createTeam()]}>
+          <button onClick={() => [createIndex()]}>
             Create CreatorID
           </button>
         </Button1>
