@@ -7,8 +7,6 @@ const image =
 const bg =
   "https://res.cloudinary.com/doybtqm8h/image/upload/v1648362954/kppppnzfvodiiw6xem3s.jpg";
 
-const videos = [];
-
 const Background = styled.div`
   min-height: 20vh;
   max-width: 100vw;
