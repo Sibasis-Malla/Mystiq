@@ -12,6 +12,7 @@ import "./App.css";
 import Display from "./pages/Display";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Profile from "./components/Profile";
 
 function App() {
   const [Currentaccount, setCurrentAccount] = useState("");
@@ -83,6 +84,7 @@ function App() {
         <Route path="/creator/team" element={<ManageTeam />} />
         <Route path="/Upload" element={<UploadVideo />} />
         <Route path="/Creator" element={<Sidebar />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );
