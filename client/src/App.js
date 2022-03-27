@@ -4,6 +4,7 @@ import Player from "./components/Viewer";
 import Pay from "./components/CreatorLanding";
 import StartStream from "./components/Live";
 import ManageTeam from "./components/CreatorTeam";
+import Signup from "./components/Signup";
 import data from "./pages/data";
 import { getlit } from "./helpers/AlchemyNFT";
 import UploadVideo from "./components/Upload";
@@ -83,6 +84,7 @@ function App() {
         <Route path="/creator/team" element={<ManageTeam />} />
         <Route path="/Upload" element={<UploadVideo />} />
         <Route path="/Creator" element={<Sidebar />} />
+        <Route path="/Signup" element={<Signup />} />
       </Routes>
     </Router>
   );

@@ -1,15 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dashboard from "../components/HomePage";
 import datas from "./data";
 import styled from "styled-components";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../helpers/Firebase";
+
+// import { database } from "../helpers/Firebase";
+// import { ref, set, onValue,update,push,child } from "firebase/database";
+
 const Display = () => {
+  const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   setData()
+  // });
+
+  useEffect(() => {
+    (async () => {
+      const querySnapshot = await getDocs(collection(db, "data"));
+      setData(querySnapshot.docs.map((doc) => doc.data()));
+    })();
+  }, []);
+  console.log(data);
+  // console.log(querySnapshot.docs);
+  // querySnapshot.forEach((doc) => {
+  //   console.log(doc.id);
+  // });
+  //  const[dataset,setData] = useState();
+  //    const getData = () => {
+
+  //     const members = ref(
+  //       database,
+  //       "data"
+  //     );
+  //   onValue(members, (snapshot) => {
+  //       const data = snapshot.val();
+  //       //console.log(data);
+  //       setData(data);
+  //       //console.log(dataset)
+
+  //     });
+  //   };
+  //   useEffect(() => {
+  //     getData()
+  //   }, []);
+  // console.log(datas)
   return (
     <Container>
-      {datas.map((data) => {
-        const { name, id, image,address } = data;
+      {data.map((data) => {
+        const { name, id, image, address, price } = data;
+        // console.log(name, id, image, address, price);
         return (
           <article key={id}>
-            <Dashboard name={name} id={id} image={image} address={address}/>
+            <Dashboard
+              name={name}
+              id={id}
+              image={image}
+              address={address}
+              price={price}
+            />
           </article>
         );
       })}

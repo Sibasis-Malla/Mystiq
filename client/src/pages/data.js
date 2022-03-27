@@ -1,37 +1,42 @@
 export default [
   {
     id: 1,
-    address: "0x49535e0D37E232F43b1c35541978c562051473D6",
+    address:"0x49535e0D37E232F43b1c35541978c562051473D6",
     name: "Bertie Yates",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1595959131/person-2_ipcjws.jpg",
+    price:10
   },
   {
     id: 2,
-    address: "0xA080c1d469936774489A94b2f404A5a1FeAAddA1",
+    address:"0x4823c8333e85Ebc97D4078daC78cadc1FD10383e",
     name: "Hester Hogan",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1595959131/person-3_rxtqvi.jpg",
+      price:15
   },
   {
     id: 3,
-    address: "0xA080c1d469936774489A94b2f404A5a1FeAAddA1",
+    address:"0xA080c1d469936774489A94b2f404A5a1FeAAddA1",
     name: "Larry Little",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1586883423/person-4_t9nxjt.jpg",
+      price:12
   },
   {
     id: 4,
     name: "Sean Walsh",
-    address: " ",
+    address:" ",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1586883417/person-3_ipa0mj.jpg",
+      price:9.99
   },
   {
     id: 5,
-    address: "",
+    address:"",
     name: "Lola Gardner",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1586883334/person-1_rfzshl.jpg",
+      price:8.99
   },
 ];
