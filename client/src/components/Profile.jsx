@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../helpers/Firebase";
+import { useParams } from "react-router-dom";
 
 const image =
   "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1595959131/person-2_ipcjws.jpg";
@@ -101,49 +104,74 @@ const CardContainer = styled.div`
 `;
 
 const Profile = () => {
+  const [data, setData] = useState([]);
+  const [dat, setDat] = useState({});
+  const [src, setSrc] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  let { add } = useParams();
+  useEffect(() => {
+    (async () => {
+      const querySnapshot = await getDocs(collection(db, "data"));
+      setData(querySnapshot.docs.map((doc) => doc.data()));
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const temp = data.filter(({ address }) => address === add);
+      setDat(temp);
+      setIsLoading(false);
+    })();
+  }, [data]);
+
+  console.log(dat[0]);
+
   return (
-    <div style={{ overflowX: "hidden" }}>
-      <Background>
-        <ProfileImg src={image} />
-      </Background>
-      <ProfilePage>
-        <TextName>Prachi Nandi</TextName>
-        <Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut
-          placerat nibh.
-        </Description>
-        <Heading>Content</Heading>
-        <CardContainer>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/WMsWPz-KZoo"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/WMsWPz-KZoo"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/WMsWPz-KZoo"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </CardContainer>
-      </ProfilePage>
-    </div>
+    <>
+      {!isLoading && (
+        <div style={{ overflowX: "hidden" }}>
+          <Background>{dat[0] && <ProfileImg src={dat[0].image} />}</Background>
+          <ProfilePage>
+            {dat[0] && <TextName>{dat[0].name}</TextName>}
+            <Description>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut
+              placerat nibh.
+            </Description>
+            <Heading>Content</Heading>
+            <CardContainer>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </CardContainer>
+          </ProfilePage>
+        </div>
+      )}
+    </>
   );
 };
 
