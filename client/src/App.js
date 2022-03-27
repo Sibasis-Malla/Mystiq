@@ -13,6 +13,7 @@ import "./App.css";
 import Display from "./pages/Display";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Profile from "./components/Profile";
 
 function App() {
   const [Currentaccount, setCurrentAccount] = useState("");
@@ -84,7 +85,11 @@ function App() {
         <Route path="/creator/team" element={<ManageTeam />} />
         <Route path="/Upload" element={<UploadVideo />} />
         <Route path="/Creator" element={<Sidebar />} />
+<<<<<<< HEAD
+        <Route path="/profile" element={<Profile />} />
+=======
         <Route path="/Signup" element={<Signup />} />
+>>>>>>> 5ac0cba9244e071f74d61ee7295b50b8fb4b9087
       </Routes>
     </Router>
   );
