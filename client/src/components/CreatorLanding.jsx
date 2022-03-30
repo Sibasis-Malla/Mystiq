@@ -31,7 +31,7 @@ function Pay(props){
   }
 
   const mintNFT = async()=>{
-    createNewFlow()
+    //createNewFlow()
     const nft = await Accesstoken.CreateLicense(localStorage.getItem('CurrentAccount'),localStorage.getItem('tokenURI'),391418);
     console.log("Minting....")
     let tx = await nft.wait()

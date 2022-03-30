@@ -1,19 +1,48 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc,collection, addDoc } from "firebase/firestore";
+import uniqid from "uniqid";
 import {db} from "../helpers/Firebase";
-
+import client from "../helpers/Nft_storage";
 import Sidebar from "./Sidebar";
 import {
     createIndex,
   } from "../helpers/superfluid";
-import { ConstantFlowAgreementV1 } from "@superfluid-finance/sdk-core";
+//import { ConstantFlowAgreementV1 } from "@superfluid-finance/sdk-core";
 function Signup() {
   const [image, setImage] = useState("");
   const [name, setName] = useState();
   const [address, setAddress] = useState();
-  const [price,setPrice] = useState();
+  const [price,setPrice] = useState("");
   const[Url,setUrl] = useState("");
+  const [desc, setDesc] = useState("");
+  const [ipfsHash, setIpfs] = useState("");
+
+  const captureFile = async (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+    const result = await client.add(file);
+    console.log(result.path);
+    setIpfs(result.path);
+    console.log(ipfsHash);
+  };
+
+  
+  const createJson = async () => {
+    const obj = {
+      Description: desc,
+      image: ipfsHash,
+    };
+    const objJson = JSON.stringify(obj);
+    console.log(objJson);
+    const result = await client.add(objJson);
+
+    console.log(result.path);
+    localStorage.setItem('tokenURI',result.path);
+
+    console.log(result);
+  };
+
   const UploadImage=async ()=>{
     const data = new FormData()
     data.append("file", image)
@@ -30,7 +59,7 @@ function Signup() {
         console.log(data.url)
         try {
             const docRef = addDoc(collection(db, "data"), {
-              name,address,price, image: data.url
+              name,address,price, image: data.url,teamId:localStorage.getItem("teamId"),tokenUri:localStorage.getItem("tokenURI"), isLive: false, id: uniqid()
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
@@ -51,12 +80,19 @@ function Signup() {
   const handlePrice = (event) => {
     setPrice(() => ([event.target.name] = event.target.value));
   };
-  const handleSubmit = async() => {
-    UploadImage();
+  const handleDesc = (event) => {
+    setDesc(() => ([event.target.name] = event.target.value));
+  };
+  const handleSubmit = async(event) => {
+    event.preventDefault()
+    await createIndex();
+    await UploadImage();
+    await createJson();
+    alert("Congratulations You are signed UP!")
   };
   return (
     <>
-      <Sidebar />
+
       <form>
         <div className="container-fluid col-md-6">
           <h2 className="d-flex justify-content-center my-2">Sign Up</h2>
@@ -87,7 +123,7 @@ function Signup() {
             />
           </div>
           <div className="mb-3">
-              Image
+             Upload Profile Picture
             <div className="input-group mb-3">
                 
               <input
@@ -113,6 +149,31 @@ function Signup() {
               placeholder="Price"
             />
           </div>
+          
+          Upload NFT Image
+            <div className="input-group mb-3">
+            
+              <input
+              
+                type="file"
+                className="form-control"
+                id="inputGroupFile02"
+                onChange={captureFile}
+              />
+          </div>
+          <div className="mb-3">
+            <label for="description" className="form-label">
+              Name
+            </label>
+            <textarea
+              name="description"
+              onChange={handleDesc}
+              type="text-area"
+              className="form-control"
+              id="description"
+              placeholder="NFT description"
+            />
+          </div>
 
             <button
               type="button"
@@ -121,6 +182,7 @@ function Signup() {
             >
               Submit
             </button>
+
           </div>
         </div>
       </form>

@@ -30,6 +30,7 @@
     "react-scripts": "3.2.0",
     "react-video-js-player": "^1.1.1",
     "styled-components": "^5.3.3",
+    "uniqid": "^5.4.0",
     "web3": "1.2.2"
   },
   "scripts": {

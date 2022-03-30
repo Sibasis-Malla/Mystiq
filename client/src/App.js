@@ -5,15 +5,19 @@ import Pay from "./components/CreatorLanding";
 import StartStream from "./components/Live";
 import ManageTeam from "./components/CreatorTeam";
 import Signup from "./components/Signup";
-import data from "./pages/data";
-import { getlit } from "./helpers/AlchemyNFT";
-import UploadVideo from "./components/Upload";
+import Live from "./components/Live"
+import getlit from "./helpers/AlchemyNFT";
 
+import UploadVideo from "./components/Upload";
+import Loading from "./components/Loading/Loading";
 import "./App.css";
 import Display from "./pages/Display";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Profile from "./components/Profile";
+
+// import ProtectedRoute from "./components/protectedRoutes";
+
 
 function App() {
   const [Currentaccount, setCurrentAccount] = useState("");
@@ -56,7 +60,6 @@ function App() {
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
       localStorage.setItem("CurrentAccount", account);
-      getlit(localStorage.getItem("CurrentAccount"));
     } else {
       console.log("No authorized account found");
     }
@@ -78,15 +81,17 @@ function App() {
         <Route path="/Pay" element={<Pay />} />
 
         <Route
-          path="/stream"
+          path="/:uid/stream"
           element={<Player playbackId={localStorage.getItem("playbackId")} />}
         />
-        <Route path="/live" element={<StartStream />} />
-        <Route path="/creator/team" element={<ManageTeam />} />
-        <Route path="/Upload" element={<UploadVideo />} />
-        <Route path="/Creator" element={<Sidebar />} />
+        <Route path="/:id/live" element={<StartStream />} />
+        <Route path="/:id/creator/team" element={<ManageTeam />} />
+        <Route path="/:id/Upload" element={<UploadVideo />} />
+        <Route path="/:id/Creator" element={<Sidebar />} />
         <Route path="/:add" element={<Profile />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path="/loading" element={<Loading/>}/>
+   
       </Routes>
     </Router>
   );

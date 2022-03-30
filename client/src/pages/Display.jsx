@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../components/HomePage";
-import datas from "./data";
 import styled from "styled-components";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../helpers/Firebase";
@@ -18,33 +17,10 @@ const Display = () => {
     })();
   }, []);
   console.log(data);
-  // console.log(querySnapshot.docs);
-  // querySnapshot.forEach((doc) => {
-  //   console.log(doc.id);
-  // });
-  //  const[dataset,setData] = useState();
-  //    const getData = () => {
-
-  //     const members = ref(
-  //       database,
-  //       "data"
-  //     );
-  //   onValue(members, (snapshot) => {
-  //       const data = snapshot.val();
-  //       //console.log(data);
-  //       setData(data);
-  //       //console.log(dataset)
-
-  //     });
-  //   };
-  //   useEffect(() => {
-  //     getData()
-  //   }, []);
-  // console.log(datas)
   return (
     <Container>
       {data.map((data) => {
-        const { name, image, address, price } = data;
+        const { name, image, address, price,teamId,tokenUri } = data;
         console.log(name, image, address, price);
         return (
           <article>
@@ -53,6 +29,8 @@ const Display = () => {
               image={image}
               address={address}
               price={price}
+              teamId = {teamId}
+              tokenUri = {tokenUri}
             />
           </article>
         );

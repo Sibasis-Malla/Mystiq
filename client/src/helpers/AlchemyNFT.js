@@ -11,30 +11,27 @@
     
     // The wallet address we want to query for NFTs:
     
-    async function getlit(owner){
+    export default async(owner,teamId) => {
       const ownerAddr = owner;
     const nfts = await web3.alchemy.getNfts({
       owner: ownerAddr
     })
     const array = nfts.ownedNfts;
-    //console.log(array)
+  
     let count = 0;
     function auth(item){
       for(let i=0;i<item.length;i++){
-        //console.log(Math.trunc(Number(item[i].id.tokenId)/10000000) )
-        if(item[i].contract.address === "0x3a142dffefd8ceab39f15f3ffbd091bfbc2c892e" && Math.trunc(Number(item[i].id.tokenId)/10000000) === 391418){
+       // console.log(Math.trunc(Number(item[i].id.tokenId)/10000000) )
+        //console.log(item[i].contract.address)
+        if(item[i].contract.address === "0x3a142dffefd8ceab39f15f3ffbd091bfbc2c892e" && Math.trunc(Number(item[i].id.tokenId)/10000000) === Number(teamId)){
+         // console.log("Hey")
           count = count+1;
+          //console.log(count)
           break;
         }
       }
-      if(count ===1){
-        console.log("Authenticated");
-      }
-  
     }
     auth(array);
-    }
+    return count;
+}
 
-
-
-export {getlit};

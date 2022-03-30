@@ -7,9 +7,17 @@ const Navbar = (props) => {
     <Container>
       <div>
         {/* <h1 style={{ color: "white" }}>MyStiq</h1> */}
+       
         <Button onClick={props.ConnectWallet}>Connect Metamask</Button>
+       
         <Link to="/">
           <h1 style={{ color: "white" }}>MyStiq</h1>
+        </Link>
+      
+        <Link to="/signup">
+         <Button2>
+         Sign Up
+           </Button2> 
         </Link>
       </div>
     </Container>
@@ -53,3 +61,22 @@ const Button = styled.button`
   text-align: center;
   place-items: center;
 `;
+
+
+const Button2=styled.div`
+float: right;
+margin-top: 15px;
+margin-right: 3px;
+background: black;
+align-items: right;
+padding: 0.25rem 0.5rem;
+border-radius: 30px;
+text-transform: capitalize;
+color: whitesmoke;
+border-color: transparent;
+cursor: pointer;
+font-size: 1.2rem;
+padding: 10px;
+text-align: center;
+place-items: center;
+`

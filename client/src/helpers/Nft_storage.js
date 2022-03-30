@@ -1,6 +1,6 @@
 const ipfsClient = require('ipfs-http-client')
-const projectId = '202XGjxJMpv4iwaHhbphTa9dqWZ'
-const projectSecret = '421e5721b471bf5e3235104b7ff8e82c'
+const projectId = '277J4qfFtNMoU4VjPgwkSC7agwj'
+const projectSecret = '25dbbdefd169318ba0dd5d82708f080a'
 const auth =
   'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64')
 console.log(auth)

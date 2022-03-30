@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "../helpers/Firebase";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import getlit from "../helpers/AlchemyNFT";
+import Loading from "./Loading/Loading";
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
-const image =
-  "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,h_900,w_900/v1595959131/person-2_ipcjws.jpg";
+// function withRouter(Component) {
+//   function ComponentWithRouterProp(props) {
+//     let location = useLocation();
+//     let navigate = useNavigate();
+//     let params = useParams();
+//     return (
+//       <Component
+//         {...props}
+//         router={{ location, navigate, params }}
+//       />
+//     );
+//   }
+
+//   return ComponentWithRouterProp;
+// }
+
 
 const bg =
   "https://res.cloudinary.com/doybtqm8h/image/upload/v1648362954/kppppnzfvodiiw6xem3s.jpg";
@@ -20,6 +41,7 @@ const Background = styled.div`
   background-size: cover;
   display: flex;
   justify-content: center;
+
 `;
 
 const Heading = styled.h1`
@@ -29,10 +51,12 @@ const Heading = styled.h1`
   color: #000;
   font-family: Georgia, "Times New Roman", Times, serif;
   text-align: center;
+  color:white;
+
 `;
 
 const ProfilePage = styled.div`
-  background-color: #ffeddf;
+  background-color: rgb(3,9,40);
   width: 100vw;
   padding: 20px;
   display: flex;
@@ -48,6 +72,7 @@ const ProfileImg = styled.img`
   position: relative;
   bottom: -125px;
   border-radius: 50%;
+
 `;
 
 const TextName = styled.h2`
@@ -60,6 +85,8 @@ const TextName = styled.h2`
   margin: 0px;
   margin-top: 125px;
   color: #000000;
+  color:white;
+
 `;
 
 const Description = styled.p`
@@ -73,6 +100,8 @@ const Description = styled.p`
   margin-bottom: 10px;
   padding: 0px 30px;
   color: #000000;
+  color:white;
+
 `;
 
 const LinkContainer = styled.div`
@@ -86,6 +115,8 @@ const LinkContainer = styled.div`
     cursor: pointer;
     margin-right: 13px;
     margin-top: 10px;
+  color:white;
+
     @media (max-width: 660px) {
       width: 15px;
       height: 15px;
@@ -96,17 +127,20 @@ const LinkContainer = styled.div`
 
 const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  gap: 20px;
+  align-items:center;
+  gap: 30px;
   padding: 20px 50px;
   text-align: center;
+  color:white;
+
 `;
 
 const Profile = () => {
   const [data, setData] = useState([]);
   const [dat, setDat] = useState({});
-  const [src, setSrc] = useState("");
+ // const [timer,set]
   const [isLoading, setIsLoading] = useState(true);
 
   let { add } = useParams();
@@ -117,62 +151,109 @@ const Profile = () => {
     })();
   }, []);
 
+  console.log(data);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false)
+  //   }, 2000);
+  //   //return () => clearTimeout(timer);
+  // }, []);
+
   useEffect(() => {
     (async () => {
       const temp = data.filter(({ address }) => address === add);
       setDat(temp);
-      setIsLoading(false);
     })();
   }, [data]);
 
-  console.log(dat[0]);
+  const [isAuth,setAuth]= useState(false)
+  useEffect(() => {
+    (async () => {
+      let temp = 0;
+      if(dat[0] && dat[0].teamId)
+      {
+        temp = await getlit(localStorage.getItem("CurrentAccount"),dat[0].teamId)
+      }
+      console.log(temp)
+      if(temp>0){
+        setAuth(true)
+        setIsLoading(false)
+      }
+    })();
+  })
+  //console.log(isLoading, "==>", isAuth)
+    return (
+      <>
+       <Sidebar/>
+       <div > 
+       {isLoading ? <Loading /> : isAuth && (
+          <div style={{ overflowX: "hidden" }}>
+            <Background >{dat[0] && <ProfileImg src={dat[0].image} />}</Background>
+            <ProfilePage>
+              {dat[0] && <TextName>{dat[0].name}</TextName>}
+              <Description>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut
+                placerat nibh.
+              </Description>
+              {dat[0] && dat[0].live && 
+              <Link to={`${dat[0].id}/stream`}>
+                <div class="d-grid btn btn-primary mx-auto">
+                  Live
+                </div>
+                </Link>
+              }
+              <Heading>Content</Heading>
+              <CardContainer>
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </CardContainer>
+            </ProfilePage>
+          </div>
+        )}
 
-  return (
-    <>
-      {!isLoading && (
-        <div style={{ overflowX: "hidden" }}>
-          <Background>{dat[0] && <ProfileImg src={dat[0].image} />}</Background>
-          <ProfilePage>
-            {dat[0] && <TextName>{dat[0].name}</TextName>}
-            <Description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut
-              placerat nibh.
-            </Description>
-            <Heading>Content</Heading>
-            <CardContainer>
-              <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/WMsWPz-KZoo"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-              <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/WMsWPz-KZoo"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-              <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/WMsWPz-KZoo"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </CardContainer>
-          </ProfilePage>
-        </div>
-      )}
-    </>
-  );
+       </div>
+        
+      </>
+    );
+  
+
+  // console.log(dat[0]);
+
 };
 
 export default Profile;

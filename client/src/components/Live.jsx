@@ -3,9 +3,21 @@ import { fetchData } from "../helpers/livepeer";
 import styled from "styled-components";
 import Modal from "./Modal/Modal";
 import Sidebar from "./Sidebar";
+import {db} from "../helpers/Firebase";
+import {doc, updateDoc} from "firebase/firestore";
+import { useParams } from "react-router-dom";
 
 const drawerWidth = 240;
 function StartStream() {
+  let { id } = useParams();
+  const [LivepeerApiKey, setKey] = useState("");
+
+  // Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [dat, setDat] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -16,18 +28,20 @@ function StartStream() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(LivepeerApiKey);
-    await fetchData(LivepeerApiKey);
+    await fetchData(LivepeerApiKey, id);
     console.log("After FetchData() is called");
     openModal();
+
+    const docRef = doc(db,'data',id);
+    updateDoc(docRef, {
+      live: true
+    }).then(() => {
+      console.log("Updated")
+    })
   };
   const handleAPIKey = (event) => {
     setKey(() => ([event.target.name] = event.target.value));
   };
-
-  const [LivepeerApiKey, setKey] = useState("");
-
-  // Modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div>

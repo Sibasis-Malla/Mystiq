@@ -1,8 +1,9 @@
 import axios from "axios";
+import {db} from "../helpers/Firebase";
+import {doc, updateDoc} from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
-
-
-async function fetchData (APIkey){
+async function fetchData (APIkey, id){
 
     await axios.post('https://livepeer.com/api/stream',
             {
@@ -40,6 +41,23 @@ async function fetchData (APIkey){
        console.log(response.data.streamKey)
       localStorage.setItem('streamKey',response.data.streamKey)
       localStorage.setItem('playbackId',response.data.playbackId)
+      const q = query(collection(db, "data"), where("id", "==", id));
+      const docGet = async()=>{
+        const querySnapshot = await getDocs(q);
+        console.log(querySnapshot);
+        querySnapshot.forEach((doci) => {
+          console.log(doc.id);
+          const docRef = doc(db,'data',doci.id);
+          updateDoc(docRef, {
+            playbackId: response.data.playbackId
+          }).then(() => {
+            console.log("Updated")
+          })
+        });
+  
+      }
+      docGet();
+   
       //console.log('Set at local Storage')
      })
 
