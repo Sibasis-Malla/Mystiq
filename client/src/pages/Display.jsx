@@ -4,20 +4,57 @@ import styled from "styled-components";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../helpers/Firebase";
 import { Link } from "react-router-dom";
+import Alchemy from "../assets/Alchemy.png"
+import "bootstrap/dist/css/bootstrap.min.css";
+import {fUSDCxabi} from "../contracts/fUSDCx";
+import BigNumber from 'bignumber.js';
+import { ethers } from "ethers";
+
+
 
 // import { database } from "../helpers/Firebase";
 // import { ref, set, onValue,update,push,child } from "firebase/database";
 
 const Display = () => {
   const [data, setData] = useState([]);
+  const [balance,setBalance] = useState(0);
   useEffect(() => {
     (async () => {
       const querySnapshot = await getDocs(collection(db, "data"));
       setData(querySnapshot.docs.map((doc) => doc.data()));
     })();
   }, []);
-  console.log(data);
+  //console.log(data);
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  let Bal=0;
+  const fUSDCX =  new ethers.Contract(
+    "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7",
+    fUSDCxabi,provider
+ )
+ 
+
+  const  getBalance=async ()=>{
+
+   let fUSDCxBal = await fUSDCX.balanceOf(localStorage.getItem('CurrentAccount'));
+
+    const bal = new BigNumber (fUSDCxBal._hex,16)
+    console.log("FUSDCX Balance",bal.c[0]/10000)
+    Bal = bal.c[0]/10000;
+    setBalance(Bal);
+    console.log(balance);
+  }
+  useEffect(() => {
+    getBalance();
+    
+  }, []);
   return (
+    <>
+    <Balance>
+    
+    <h1>FUSDCx Balance: ${balance}</h1>
+
+    </Balance>
     <Container>
       {data.map((data) => {
         const { name, image, address, price,teamId,tokenUri } = data;
@@ -36,11 +73,44 @@ const Display = () => {
         );
       })}
     </Container>
+    <Footer >
+    <footer class = 'footer bg-dark py-3 mt-auto' style={{width:"100%"}}>
+    <Image>
+    <h1>Authenticated by</h1>
+
+    <img src={Alchemy} />
+
+    </Image>
+    {/* <div class="container text-center">
+        <span class=" text-muted " >copy Yelpcamp 2021</span>
+
+    </div> */}
+
+</footer>
+
+    </Footer>
+    
+   
+
+    </>
+    
+
   );
 };
 
 export default Display;
 
+const Balance=styled.div`
+display:flex;
+justify-content:flex-end;
+>h1{
+  font-weight:900;
+  font-size:30px;
+margin:20px 20px;
+color:#0cc738;
+
+}
+`
 const Container = styled.div`
   display: grid;
   /* Umderstand the below code in the video */
@@ -49,6 +119,32 @@ const Container = styled.div`
   padding: 3rem 1rem;
   margin: 0.5rem 1.5px;
 
-  border-top: 0.2px solid gray;
+  // border-top: 0.2px solid gray;
   margin-top: 5rem;
 `;
+
+
+const Image=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+>h1{
+  margin-right:10px;
+  font-size:20px;
+}
+>img{
+  // border:2px solid red;
+  height:30px;
+  // width:30px;
+  background-color:white;
+}
+
+`
+const Footer=styled.div`
+ >footer{
+   position:fixed;
+   bottom:0;
+   height:50px;
+ }
+  
+`

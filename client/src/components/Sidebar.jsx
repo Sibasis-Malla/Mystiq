@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -9,11 +9,15 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-
+import { collection, doc, getDocs } from "firebase/firestore";
+import { db } from "../helpers/Firebase";
 
 const drawerWidth = 240;
 
 const Sidebar = (props) => {
+  let { add } = useParams();
+  const [data, setData] = useState([]);
+  const [dat, setDat] = useState({});
   const [Currentaccount, setCurrentAccount] = useState("");
   const [isCreator, setCreator] = useState(false);
 
@@ -31,9 +35,7 @@ const Sidebar = (props) => {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
-      console.log("check");
-      console.log();
-      if (account === localStorage.getItem("CurrentCreator").toLowerCase()) {
+      if (account.toLowerCase() === localStorage.getItem("CurrentCreator").toLowerCase()) {
         setCreator(true);
         console.log(setCreator);
       }
@@ -41,120 +43,132 @@ const Sidebar = (props) => {
       console.log("No authorized account found");
     }
   };
+  useEffect(() => {
+    (async () => {
+      const temp = data.filter(({ address }) => address === add);
+      
+      setDat(temp);
+    })();
+  }, [data]);
 
+
+  useEffect(() => {
+    (async () => {
+      const querySnapshot = await getDocs(collection(db, "data"));
+      console.log(querySnapshot)
+      setData(querySnapshot.docs.map((doc) => doc.data()));
+    })();
+  }, []);
   useEffect(() => {
     AuthenticateOwner();
   }, []);
+  if(isCreator){
 
-  return (
-    <>
-      {isCreator && (
-        <Box
-          sx={{
-            display: "flex",
-          }}
-          style={{ backgroundColor: "rgb(3, 9, 40)", color: "white" }}
-        >
-          {/* <CssBaseline /> */}
-          <AppBar
-            position="fixed"
+    return (
+      <>
+      (
+          <Box
             sx={{
-              width: `calc(100% - ${drawerWidth}px)`,
-              ml: `${drawerWidth}px`,
+              display: "flex",
             }}
+            style={{ backgroundColor: "rgb(3, 9, 40)", color: "white" }}
           >
-            {/* <Toolbar></Toolbar> */}
-          </AppBar>
-          <Drawer
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              "& .MuiDrawer-paper": {
-                width: drawerWidth,
-                boxSizing: "border-box",
-                // backgroundColor: "rgb(3, 9, 40)",
-              },
-            }}
-            variant="permanent"
-            anchor="left"
-          >
-            <Toolbar />
-            <Divider />
-            <List
-              style={{
-                backgroundColor: "rgb(3, 9, 40)",
-                color: "white",
-                height: "100%",
-                position: "absolute",
-                width: "100%",
+            {/* <CssBaseline /> */}
+            <AppBar
+              position="fixed"
+              sx={{
+                width: `calc(100% - ${drawerWidth}px)`,
+                ml: `${drawerWidth}px`,
               }}
             >
-              <ListItem button>
-                <Link
-                  to="/creator/team"
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                    margin: "1rem 0",
-                  }}
-                >
-                  <ListItemText primary={`Team`} />
-                </Link>
-              </ListItem>
-              <ListItem button>
-                <Link
-                  to="/live"
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                    margin: "1rem 0",
-                  }}
-                >
-                  <ListItemText primary={`Go Live`} />
-                </Link>
-              </ListItem>
-              <ListItem button>
-                <Link
-                  to="/upload"
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
+              {/* <Toolbar></Toolbar> */}
+            </AppBar>
+            <Drawer
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: drawerWidth,
+                  boxSizing: "border-box",
+                  // backgroundColor: "rgb(3, 9, 40)",
+                },
+              }}
+              variant="permanent"
+              anchor="left"
+            >
+              <Toolbar />
+              <Divider />
+              <List
+                style={{
+                  backgroundColor: "rgb(3, 9, 40)",
+                  color: "white",
+                  height: "100%",
+                  position: "absolute",
+                  width: "100%",
+                }}
+              >
+                <ListItem button >
+                {dat[0]  && 
+ <Link 
+                    to={`/${localStorage.getItem("CurrentCreator")}/${dat[0].id}/creator/team`}
+                    style={{
+                      fontWeight:"bold",
 
-                    margin: "1rem 0",
-                  }}
-                >
-                  <ListItemText primary={`Upload Video`} />
-                </Link>
-              </ListItem>
-            </List>
-            <Divider />
-          </Drawer>
-        </Box>
-      )}
-      {/* {isCreator ? (
-        <Container>
-          <ListContainer>
-            <nav role="navigation">
-              <ul>
-                <li>
-                  <Link to="/creator/team">Team</Link>
-                </li>
-                <li>
-                  <Link to="/live">Go live</Link>
-                </li>
-                <li>
-                  <Link to="/upload">Upload Video</Link>
-                </li>
-              </ul>
-            </nav>
-          </ListContainer>
-        </Container>
-      ) : (
-        ""
-      )} */}
-      
-    </>
-  );
+                      textDecoration: "none",
+                      color: "white",
+                      margin: "1rem 0",
+                    }}
+                  >
+                    <ListItemText primary={`Team`} />
+                  </Link>
+                 
+                  }
+                </ListItem>
+                <ListItem button>
+                {dat[0]  && 
+                  <Link
+                    to={`/${localStorage.getItem("CurrentCreator")}/${dat[0].id}/live`}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      margin: "1rem 0",
+                    }}
+                  
+                  >
+                    <ListItemText primary={`Go Live`} />
+                  </Link>
+                  }
+                </ListItem>
+                <ListItem button>
+                {dat[0] && 
+                  <Link
+                    to={`/${localStorage.getItem("CurrentCreator")}/${dat[0].id}/Upload`}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+  
+                      margin: "1rem 0",
+                    }}
+                  >
+                    <ListItemText primary={`Upload Video`} />
+                  </Link>
+                }
+                </ListItem>
+              </List>
+              <Divider />
+            </Drawer>
+          </Box>
+        )
+        
+      </>
+    );
+  }
+  else{
+    return(
+      <></>
+    )
+  }
+  
 };
 export default Sidebar;
 
@@ -249,3 +263,4 @@ const Button = styled.button`
   display: grid;
   place-items: center;
 `;
+

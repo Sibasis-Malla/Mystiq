@@ -11,7 +11,7 @@ const Navbar = (props) => {
         <Button onClick={props.ConnectWallet}>Connect Metamask</Button>
        
         <Link to="/">
-          <h1 style={{ color: "white" }}>MyStiq</h1>
+          <h1 style={{ color: "white",fontWeight:"900" }}>MyStiq</h1>
         </Link>
       
         <Link to="/signup">

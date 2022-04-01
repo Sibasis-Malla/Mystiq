@@ -4,7 +4,7 @@ import {fUSDCxabi} from "../contracts/fUSDCx";
 import { createNewFlow } from "../helpers/superfluid";
 import { ethers } from "ethers";
 import BigNumber from 'bignumber.js';
-function Pay(props){
+function Pay(){
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const [token,setToken] = useState("");

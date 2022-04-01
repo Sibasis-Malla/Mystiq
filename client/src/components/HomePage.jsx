@@ -10,6 +10,7 @@ import {createNewFlow} from "../helpers/superfluid"
 
 
 const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
+  
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   let Bal=0;
@@ -18,6 +19,9 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
     AccessToken.abi,
     signer 
   )
+
+  
+  
   const mintNFT = async()=>{
     //event.preventDefault();
     console.log(price)
@@ -32,6 +36,7 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
     let tokenId = value.toNumber()
     console.log(tokenId)
     setTimeout(window.location.reload(false),2000); 
+    alert("Congratulations you are Subscribed")
   }
   const [count, setCount] = useState(0);
 
@@ -80,6 +85,8 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
             }
           </div>
         </div>
+ 
+
       </div>
     </>
   );

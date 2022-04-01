@@ -81,13 +81,12 @@ function App() {
         <Route path="/Pay" element={<Pay />} />
 
         <Route
-          path="/:uid/stream"
+          path="/:add/:uid/stream"
           element={<Player playbackId={localStorage.getItem("playbackId")} />}
         />
-        <Route path="/:id/live" element={<StartStream />} />
-        <Route path="/:id/creator/team" element={<ManageTeam />} />
-        <Route path="/:id/Upload" element={<UploadVideo />} />
-        <Route path="/:id/Creator" element={<Sidebar />} />
+        <Route path="/:add/:id/live" element={<StartStream />} />
+        <Route path="/:add/:id/creator/team" element={<ManageTeam />} />
+        <Route path="/:add/:id/Upload" element={<UploadVideo />} />
         <Route path="/:add" element={<Profile />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/loading" element={<Loading/>}/>

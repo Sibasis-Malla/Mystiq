@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { fetchData } from "../helpers/livepeer";
 import styled from "styled-components";
 import Modal from "./Modal/Modal";
 import Sidebar from "./Sidebar";
-import {db} from "../helpers/Firebase";
-import {doc, updateDoc} from "firebase/firestore";
-import { useParams } from "react-router-dom";
 
-const drawerWidth = 240;
+import {  doc, getDocs } from "firebase/firestore";
+import { collection, query, where } from "firebase/firestore";
+import { db } from "../helpers/Firebase";
+import { updateDoc} from "firebase/firestore";
+import { useParams } from "react-router-dom";
+import Livepeer from "../assets/livepeer.png"
+
+
 function StartStream() {
-  let { id } = useParams();
+  let { id,add } = useParams();
+  let fid=0
+
+
+
   const [LivepeerApiKey, setKey] = useState("");
 
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [data, setData] = useState([]);
-  const [dat, setDat] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+
+  
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -31,8 +38,15 @@ function StartStream() {
     await fetchData(LivepeerApiKey, id);
     console.log("After FetchData() is called");
     openModal();
+    const q = query(collection(db, "data"), where("id", "==", id));
 
-    const docRef = doc(db,'data',id);
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+    fid = doc.id
+  });
+
+    const docRef = doc(db,'data',fid);
     updateDoc(docRef, {
       live: true
     }).then(() => {
@@ -43,12 +57,14 @@ function StartStream() {
     setKey(() => ([event.target.name] = event.target.value));
   };
 
+
   return (
     <div>
-      <FormContainer>
         <Sidebar />
+      <FormContainer>
+      
         <form>
-          <h3>Enter API Key </h3>
+          <h3 >Enter API Key </h3>
           <input type="text" name="LivepeerApiKey" onChange={handleAPIKey} />
           <div>
             <Button>
@@ -62,6 +78,19 @@ function StartStream() {
             </Button>
           </div>
         </form>
+        <Footer >
+    <footer class = 'footer bg-dark py-3 mt-auto' style={{width:"100%"}}>
+    <Image>
+    <h1>Powered by</h1>
+
+    <img src={Livepeer} />
+
+    </Image>
+    
+
+</footer>
+
+    </Footer>
       </FormContainer>
       <Modal
         isModalOpen={isModalOpen}
@@ -72,6 +101,7 @@ function StartStream() {
   );
 }
 export default StartStream;
+
 
 const FormContainer = styled.div`
   max-width: 400px;
@@ -89,11 +119,14 @@ const FormContainer = styled.div`
     font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
   }
 
+  
   > h3 {
-    display: block;
-    font-size: 30px;
+    // display: block;
+    font-size: 200px;
     font-weight: 300;
     margin-bottom: 10px;
+  
+
   }
   > form > input {
     border: 2px solid black;
@@ -104,11 +137,17 @@ const FormContainer = styled.div`
     height: 1.5rem;
     margin-top: -20px;
   }
+  form>h3{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    font-size:27px;
+  }
 `;
 
 const Button = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   > button {
     cursor: pointer;
     width: 30%;
@@ -119,5 +158,39 @@ const Button = styled.div`
     padding: 10px;
     font-size: 15px;
     margin-top: auto;
+    
+
   }
-`;
+
+`
+const Image=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+>h1{
+  margin-right:10px;
+  font-size:20px;
+color:white;
+font-weight:bolder;
+
+}
+>img{
+  // border:2px solid red;
+  height:30px;
+  // width:30px;
+  background-color:white;
+}
+
+`
+const Footer=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+
+ >footer{
+   position:fixed;
+   bottom:0;
+   height:50px;
+ }
+  
+`

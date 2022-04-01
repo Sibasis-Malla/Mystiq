@@ -7,7 +7,7 @@ import {
 import { database } from "../helpers/Firebase";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-
+import Superfluid from "../assets/superfluid.png"
 
 
 function ManageTeam() {
@@ -32,10 +32,7 @@ function ManageTeam() {
   };
 
 
- 
 
-
- 
   const onAdd = async(event)=>{
     event.preventDefault();
     updateSubscription(
@@ -50,6 +47,8 @@ function ManageTeam() {
     <>
   <div><Sidebar></Sidebar></div>
       <FormContainer>
+      
+      
         <form>
           
 
@@ -78,7 +77,19 @@ function ManageTeam() {
             </button>
           </Button>
         </form>
+        <Footer >
+    <footer class = 'footer bg-dark py-3 mt-auto' style={{width:"100%"}}>
+    <Image>
+    <h1>Powered by</h1>
 
+    <img src={Superfluid} />
+
+    </Image>
+    
+
+</footer>
+
+    </Footer>
       </FormContainer>
 
    
@@ -87,18 +98,24 @@ function ManageTeam() {
   );
 }
 export default ManageTeam;
+
+
 const FormContainer = styled.div`
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
   position: relative;
-  color:black;
 
+  color:black;
+  margin-top:100px;
   > form {
     background: #f9f9f9;
     padding: 25px;
     margin: 150px 0;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+   margin-top:-10px;
+
+
   }
   > button {
     font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
@@ -118,6 +135,16 @@ const FormContainer = styled.div`
     width: 100%;
     height: 1.5rem;
     margin-top: -20px;
+    margin-bottom:20px;
+
+
+  }
+  >form>h3{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    font-size:22px;
+    margin-bottom:10px;
   }
 `;
 const Button = styled.div`
@@ -134,22 +161,40 @@ const Button = styled.div`
     padding: 10px;
     font-size: 15px;
     margin-top: auto;
-  }
-`;
+    margin-bottom:20px;
 
-const Button1 = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  > button {
-    cursor: pointer;
-    width: 20%;
-    border: none;
-    background: orange;
-    color: #fff;
-    /* margin: 0 0 5px; */
-    padding: 10px;
-    font-size: 15px;
-    margin-top: 2rem;
   }
-`;
+  
+`
+const Image=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+>h1{
+  margin-right:10px;
+  font-size:20px;
+color:white;
+font-weight:bolder;
+
+}
+>img{
+  // border:2px solid red;
+  height:30px;
+  // width:30px;
+  background-color:white;
+}
+
+`
+const Footer=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+
+ >footer{
+   position:fixed;
+   bottom:0;
+   height:50px;
+ }
+  
+`
+

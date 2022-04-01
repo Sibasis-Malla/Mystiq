@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "../helpers/Firebase";
 import Loading from "./Loading/Loading";
+
 function Player(props) {
   const [data, setData] = useState([]);
   const [dat, setDat] = useState({});
