@@ -101,7 +101,6 @@ const Description = styled.p`
   padding: 0px 30px;
   color: #000000;
   color:white;
-
 `;
 
 const LinkContainer = styled.div`
@@ -130,11 +129,13 @@ const CardContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   align-items:center;
-  gap: 30px;
+  gap: 20px;
   padding: 20px 50px;
   text-align: center;
   color:white;
-
+ margin-left:200px;
+ position:relative;
+ right:50px;
 `;
 
 const Profile = () => {
@@ -187,14 +188,13 @@ const Profile = () => {
       <>
        <Sidebar/>
        <div > 
-       {isLoading ? <Loading /> : isAuth && (
+       {isLoading ? <Loading /> : isAuth && 
           <div style={{ overflowX: "hidden" }}>
             <Background >{dat[0] && <ProfileImg src={dat[0].image} />}</Background>
             <ProfilePage>
               {dat[0] && <TextName>{dat[0].name}</TextName>}
               <Description>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut
-                placerat nibh.
+              Make it simple. Make it memorable. 
               </Description>
               {dat[0] && dat[0].live && 
               <Link to={`${dat[0].id}/stream`}>
@@ -203,48 +203,31 @@ const Profile = () => {
                 </div>
                 </Link>
               }
-              <Heading>Content</Heading>
+              <Heading >Content</Heading>
               <CardContainer>
                 <iframe
-                  width="560"
+                  width="400"
                   height="315"
-                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                  src="https://res.cloudinary.com/doybtqm8h/video/upload/v1648903529/videoplayback_1_tzyoif.mp4"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                 ></iframe>
                 <iframe
-                  width="560"
+                  width="400"
                   height="315"
-                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
+                  src="https://res.cloudinary.com/doybtqm8h/video/upload/v1648903529/videoplayback_1_tzyoif.mp4"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                 ></iframe>
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/WMsWPz-KZoo"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
+                
               </CardContainer>
             </ProfilePage>
           </div>
-        )}
+        }
 
        </div>
         

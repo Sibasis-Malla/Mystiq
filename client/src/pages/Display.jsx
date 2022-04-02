@@ -65,7 +65,7 @@ const Display = () => {
     </Balance>
     <div style={{display:"flex",justifyContent:"flex-end", marginRight:"30px ",fontSize:"20px" }}>
     <Link to="/buy"  class="d-grid btn btn-primary mx-left"
-       style={{ textDecoration: "none", color: "#FFF" }}>TopUp USDCx</Link>
+       style={{ textDecoration: "none", color: "#FFF",fontSize:"10px" }}>TopUp USDCx</Link>
     </div>
     
    
@@ -98,7 +98,7 @@ const Display = () => {
 
     <img src={Alchemy} />
 
-    <h1 style={{marginLeft:"5px"}}> Transactions by </h1>
+    <h1 style={{marginLeft:"20px",marginTop:"2px"}}> Transactions by </h1>
 
     <img src={Superfluid} />
 
@@ -127,7 +127,7 @@ display:flex;
 justify-content:flex-end;
 >h1{
   font-weight:900;
-  font-size:30px;
+  font-size:15px;
 margin:20px 20px;
 color:#0cc738;
 
@@ -140,15 +140,16 @@ color:#0cc738;
 }
 `
 const Container = styled.div`
+overflow-x:hidden;
   display: grid;
   /* Umderstand the below code in the video */
   grid-template-columns: repeat(3, auto);
-  gap: 3rem 2rem;
-  padding: 3rem 1rem;
-  margin: 0.5rem 1.5px;
+  // gap: 1rem -2rem;
+  // padding: 3rem 1rem;
+  // margin: 0.5rem 1.5px;
 
   // border-top: 0.2px solid gray;
-  margin-top: 5rem;
+  // margin-top: 1.8rem;
 `;
 
 
