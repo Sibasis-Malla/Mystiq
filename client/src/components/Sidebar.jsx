@@ -66,7 +66,7 @@ const Sidebar = (props) => {
 
     return (
       <>
-      (
+      
           <Box
             sx={{
               display: "flex",
@@ -158,7 +158,7 @@ const Sidebar = (props) => {
               <Divider />
             </Drawer>
           </Box>
-        )
+        
         
       </>
     );
