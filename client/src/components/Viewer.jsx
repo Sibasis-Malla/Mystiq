@@ -40,6 +40,7 @@ function Player(props) {
   </>
     )
   }
+  if(dat[0] && dat[0].live === true){
   return (
     <div>
     
@@ -48,6 +49,10 @@ function Player(props) {
       </Container>
     </div>
   );
+  }else{
+    return(<h1>Live Streaming Stopped</h1>
+      )
+  }
 }
 export default Player;
 

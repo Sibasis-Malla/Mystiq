@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { request } from "../helpers/livepeer";
 import Sidebar from "./Sidebar";
@@ -6,6 +6,17 @@ function UploadVideo() {
   const [video, setVideo] = useState();
   const [title, setTitle] = useState();
   const [description, setDesc] = useState();
+   
+
+  const [isAuth, setAuth] = useState(false);
+  useEffect(() => {
+    if (
+      localStorage.getItem("CurrentCreator").toLowerCase() === localStorage.getItem("CurrentAccount").toLowerCase()
+    ) {
+      setAuth(true);
+    }
+  }, []);
+
   const handleVid = (event) => {
     setVideo(() => ([event.target.name] = event.target.value));
   };
@@ -17,7 +28,10 @@ function UploadVideo() {
   };
   const handleSubmit = () => {
     request("0d8fda3d-24f6-4ff8-a53d-d74bec8ad10e");
+
+
   };
+  if (isAuth) {
   return (
     <>
       <Sidebar />
@@ -75,5 +89,12 @@ function UploadVideo() {
       </form>
     </>
   );
+  }else {
+    return (
+      <>
+        <h1>Not Authorised</h1>
+      </>
+    );
+  }
 }
 export default UploadVideo;

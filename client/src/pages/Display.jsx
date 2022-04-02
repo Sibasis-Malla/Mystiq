@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../helpers/Firebase";
 import { Link } from "react-router-dom";
 import Alchemy from "../assets/Alchemy.png"
+import Superfluid from "../assets/superfluid.png"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {fUSDCxabi} from "../contracts/fUSDCx";
 import BigNumber from 'bignumber.js';
@@ -18,6 +19,8 @@ import { ethers } from "ethers";
 const Display = () => {
   const [data, setData] = useState([]);
   const [balance,setBalance] = useState(0);
+
+  
   useEffect(() => {
     (async () => {
       const querySnapshot = await getDocs(collection(db, "data"));
@@ -37,28 +40,43 @@ const Display = () => {
   const  getBalance=async ()=>{
 
    let fUSDCxBal = await fUSDCX.balanceOf(localStorage.getItem('CurrentAccount'));
-
+    //console.log(provider);
     const bal = new BigNumber (fUSDCxBal._hex,16)
-    console.log("FUSDCX Balance",bal.c[0]/10000)
+    //console.log("FUSDCX Balance",bal.c[0]/10000)
     Bal = bal.c[0]/10000;
     setBalance(Bal);
-    console.log(balance);
+    //console.log(balance);
   }
+
   useEffect(() => {
-    getBalance();
+    getBalance();    
+  }, [localStorage.getItem("CurrentAccount")]);
+  window.ethereum.on('accountsChanged', async function (accounts) {
     
-  }, []);
+    setTimeout(setTimeout(function(){window.location.reload(false)},2000))
+    
+  })
   return (
     <>
     <Balance>
     
-    <h1>FUSDCx Balance: ${balance}</h1>
-
+    <h1>USDCx Balance: ${balance} </h1>
+    
     </Balance>
+    <div style={{display:"flex",justifyContent:"flex-end", marginRight:"30px ",fontSize:"20px" }}>
+    <Link to="/buy"  class="d-grid btn btn-primary mx-left"
+       style={{ textDecoration: "none", color: "#FFF" }}>TopUp USDCx</Link>
+    </div>
+    
+   
+      
+    
+
+   
     <Container>
       {data.map((data) => {
         const { name, image, address, price,teamId,tokenUri } = data;
-        console.log(name, image, address, price);
+        //console.log(name, image, address, price);
         return (
           <article>
             <Dashboard
@@ -76,9 +94,13 @@ const Display = () => {
     <Footer >
     <footer class = 'footer bg-dark py-3 mt-auto' style={{width:"100%"}}>
     <Image>
-    <h1>Authenticated by</h1>
+    <h1>Authenticated by </h1>
 
     <img src={Alchemy} />
+
+    <h1 style={{marginLeft:"5px"}}> Transactions by </h1>
+
+    <img src={Superfluid} />
 
     </Image>
     {/* <div class="container text-center">
@@ -109,6 +131,12 @@ justify-content:flex-end;
 margin:20px 20px;
 color:#0cc738;
 
+}
+>h2{
+  font-weight:900;
+  font-size:30px;
+margin:20px 20px;
+color:#0cc738;
 }
 `
 const Container = styled.div`

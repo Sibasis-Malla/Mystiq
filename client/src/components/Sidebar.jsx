@@ -9,7 +9,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../helpers/Firebase";
 
 const drawerWidth = 240;
@@ -35,9 +35,9 @@ const Sidebar = (props) => {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
-      if (account.toLowerCase() === localStorage.getItem("CurrentCreator").toLowerCase()) {
+      if (account.toLowerCase() === add.toLowerCase()) {
         setCreator(true);
-        console.log(setCreator);
+       // console.log(setCreator);
       }
     } else {
       console.log("No authorized account found");

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Player from "./components/Viewer";
-import Pay from "./components/CreatorLanding";
 import StartStream from "./components/Live";
 import ManageTeam from "./components/CreatorTeam";
 import Signup from "./components/Signup";
 import Live from "./components/Live"
 import getlit from "./helpers/AlchemyNFT";
+import Upgrade from "./components/Upgrade";
 
 import UploadVideo from "./components/Upload";
 import Loading from "./components/Loading/Loading";
@@ -77,9 +77,6 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Display />} />
-
-        <Route path="/Pay" element={<Pay />} />
-
         <Route
           path="/:add/:uid/stream"
           element={<Player playbackId={localStorage.getItem("playbackId")} />}
@@ -89,7 +86,8 @@ function App() {
         <Route path="/:add/:id/Upload" element={<UploadVideo />} />
         <Route path="/:add" element={<Profile />} />
         <Route path="/Signup" element={<Signup />} />
-        <Route path="/loading" element={<Loading/>}/>
+        <Route path="/buy" element={<Upgrade/>}/>
+
    
       </Routes>
     </Router>

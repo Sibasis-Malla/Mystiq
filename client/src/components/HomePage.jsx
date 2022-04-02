@@ -10,7 +10,7 @@ import {createNewFlow} from "../helpers/superfluid"
 
 
 const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
-  
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   let Bal=0;
@@ -25,7 +25,7 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
   const mintNFT = async()=>{
     //event.preventDefault();
     console.log(price)
-    createNewFlow(price)
+    createNewFlow(price,address)
     console.log(teamId)
     const nft = await Accesstoken.CreateLicense(localStorage.getItem('CurrentAccount'),localStorage.getItem('tokenURI'),Number(teamId));
     console.log("Minting....")

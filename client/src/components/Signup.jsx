@@ -59,7 +59,7 @@ function Signup() {
         console.log(data.url)
         try {
             const docRef = addDoc(collection(db, "data"), {
-              name,address,price, image: data.url,teamId:localStorage.getItem("teamId"),tokenUri:localStorage.getItem("tokenURI"), isLive: false, id: uniqid()
+              name,address,price, image: data.url,teamId:localStorage.getItem("teamId"),tokenUri:localStorage.getItem("tokenURI"), live: false, id: uniqid()
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {

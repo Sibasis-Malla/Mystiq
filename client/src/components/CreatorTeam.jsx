@@ -11,6 +11,10 @@ import Superfluid from "../assets/superfluid.png"
 
 
 function ManageTeam() {
+  window.ethereum.on('accountsChanged', function (accounts) {
+    setTimeout(window.location.reload(false),5000)
+  })
+  
 
   const [membAddress, setmembId] = useState("");
   const [shares, setShares] = useState("");
@@ -18,7 +22,14 @@ function ManageTeam() {
   
  
 
- 
+  const [isAuth, setAuth] = useState(false);
+  useEffect(() => {
+    if (
+      localStorage.getItem("CurrentCreator").toLowerCase() === localStorage.getItem("CurrentAccount").toLowerCase()
+    ) {
+      setAuth(true);
+    }
+  }, []);
 
  
   const handleTeamMemb = (event) => {
@@ -42,6 +53,7 @@ function ManageTeam() {
     )
    
   }
+  if (isAuth) {
 
   return (
     <>
@@ -96,6 +108,13 @@ function ManageTeam() {
     
     </>
   );
+} else {
+  return (
+    <>
+      <h1>Not Authorised</h1>
+    </>
+  );
+}
 }
 export default ManageTeam;
 
