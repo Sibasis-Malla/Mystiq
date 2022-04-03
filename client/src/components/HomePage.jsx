@@ -24,10 +24,13 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
   
   const mintNFT = async()=>{
     //event.preventDefault();
-    console.log(price)
-    createNewFlow(price,address)
-    console.log(teamId)
-    const nft = await Accesstoken.CreateLicense(localStorage.getItem('CurrentAccount'),localStorage.getItem('tokenURI'),Number(teamId));
+    //console.log(price)
+    if(localStorage.getItem("CurrentAccount").toLowerCase()!=localStorage.getItem("CurrentCreator").toLowerCase()){
+      createNewFlow(price,address)
+      }
+    //console.log(teamId)
+   // console.log(tokenUri)
+    const nft = await Accesstoken.CreateLicense(localStorage.getItem('CurrentAccount'),tokenUri,Number(teamId));
     console.log("Minting....")
     let tx = await nft.wait()
     console.log('Mined!', tx)
@@ -67,7 +70,7 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
           </Image>
           <div class="card-body">
             {name}
-            {count ? 
+            {count  ? 
             <a class="d-grid btn btn-primary mx-auto">
             <Link
               to={address}

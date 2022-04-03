@@ -24,14 +24,15 @@ function Signup() {
     const result = await client.add(file);
     console.log(result.path);
     setIpfs(result.path);
-    console.log(ipfsHash);
+    //console.log(ipfsHash);
+    await createJson(result.path)
   };
 
   
-  const createJson = async () => {
+  const createJson = async (imageHash) => {
     const obj = {
       Description: desc,
-      image: ipfsHash,
+      image: imageHash,
     };
     const objJson = JSON.stringify(obj);
     console.log(objJson);
@@ -87,7 +88,6 @@ function Signup() {
     event.preventDefault()
     await createIndex();
     await UploadImage();
-    await createJson();
     alert("Congratulations You are signed UP!")
   };
   return (

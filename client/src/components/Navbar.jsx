@@ -72,7 +72,7 @@ top:0;
 
 const Button = styled.button`
   float: right;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-right: 3px;
   background: #ff4500;
   align-items: right;
@@ -90,7 +90,7 @@ const Button = styled.button`
 
 const Button2 = styled.div`
   float: right;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-right: 3px;
   background: black;
   align-items: right;

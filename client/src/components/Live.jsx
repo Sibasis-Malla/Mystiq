@@ -19,12 +19,13 @@ function StartStream() {
   let fid = 0;
   const [isAuth, setAuth] = useState(false);
   useEffect(() => {
+    const temp = localStorage.getItem("CurrentAccount");
     if (
-      add.toLowerCase() === localStorage.getItem("CurrentAccount").toLowerCase()
+      add.toLowerCase() === temp.toLowerCase()
     ) {
       setAuth(true);
     }
-  }, [localStorage.getItem("CurrentAccount").toLowerCase()]);
+  }, [localStorage.getItem("CurrentAccount")]);
 
   const [LivepeerApiKey, setKey] = useState("");
 
