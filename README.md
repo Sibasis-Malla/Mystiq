@@ -12,6 +12,6 @@ cd client
 npm install
 npm start
 ```
-##Links
-1.Project Demo - https://www.youtube.com/watch?v=PPkghasOmsU
-2.Devfolio Link - https://devfolio.co/submissions/mystiq-45ab
+## Links
+1. Project Demo - https://www.youtube.com/watch?v=PPkghasOmsU
+2. Devfolio Link - https://devfolio.co/submissions/mystiq-45ab
