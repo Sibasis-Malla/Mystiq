@@ -28,8 +28,8 @@ const Display = () => {
     })();
   }, []);
   //console.log(data);
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = window.ethereum && new ethers.providers.Web3Provider(window.ethereum);
+  //const signer = provider.getSigner();
   let Bal=0;
   const fUSDCX =  new ethers.Contract(
     "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7",
@@ -51,7 +51,7 @@ const Display = () => {
   useEffect(() => {
     getBalance();    
   }, [localStorage.getItem("CurrentAccount")]);
-  window.ethereum.on('accountsChanged', async function (accounts) {
+  window.ethereum && window.ethereum.on('accountsChanged', async function (accounts) {
     
     setTimeout(setTimeout(function(){window.location.reload(false)},2000))
     

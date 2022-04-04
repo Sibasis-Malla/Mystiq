@@ -11,8 +11,8 @@ import {createNewFlow} from "../helpers/superfluid"
 
 const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const provider = window.ethereum && new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider && provider.getSigner();
   let Bal=0;
   const Accesstoken = new ethers.Contract(
     AccessToken.networks[80001].address,
@@ -24,12 +24,10 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
   
   const mintNFT = async()=>{
     //event.preventDefault();
-    //console.log(price)
-    if(localStorage.getItem("CurrentAccount").toLowerCase()!=localStorage.getItem("CurrentCreator").toLowerCase()){
-      createNewFlow(price,address)
-      }
-    //console.log(teamId)
-   // console.log(tokenUri)
+    console.log(price)
+    createNewFlow(price,address)
+   
+    console.log(teamId)
     const nft = await Accesstoken.CreateLicense(localStorage.getItem('CurrentAccount'),tokenUri,Number(teamId));
     console.log("Minting....")
     let tx = await nft.wait()
@@ -70,7 +68,7 @@ const Dashboard = ({ name, address, image, price,teamId ,tokenUri}) => {
           </Image>
           <div class="card-body">
             {name}
-            {count  ? 
+            {count ? 
             <a class="d-grid btn btn-primary mx-auto">
             <Link
               to={address}

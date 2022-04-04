@@ -31,6 +31,10 @@ function ManageTeam() {
     }
   }, []);
 
+   const handleSubmit=(event)=>{
+     event.preventDefault()
+     distributeFunds(localStorage.getItem("teamId"), amount)
+   }
  
   const handleTeamMemb = (event) => {
     setmembId(() => ([event.target.name] = event.target.value));
@@ -80,10 +84,10 @@ function ManageTeam() {
           <input type="number" name="amount" onChange={handleAmount} />
           <Button>
             <button
-              onClick={() =>
-                // >print
-                distributeFunds(localStorage.getItem("teamId"), amount)
-              }
+              onClick={handleSubmit}
+                
+                
+              
             >
               Distribute
             </button>

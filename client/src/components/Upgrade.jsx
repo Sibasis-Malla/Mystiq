@@ -11,9 +11,9 @@ import BigNumber from 'bignumber.js';
 
 let chainId=null;
 let sf = null;
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = window.ethereum&&new ethers.providers.Web3Provider(window.ethereum);
   
-const signer = provider.getSigner();
+const signer = provider && provider.getSigner();
 
 
 const getInfo = async()=>{
